@@ -204,12 +204,18 @@ public void specializationChoice(){
    alert.setContentText("Lekarz: " + dateAndTime + "\nLekarz: " + doctorName);
 
    Optional<ButtonType> result = alert.showAndWait();
- /* if (result.get() == ButtonType.OK){
-   // ... user chose OK
+  if (result.get() == ButtonType.OK){
+   Parent functionalityChoiceParent= FXMLLoader.load(getClass().getResource("AppointmentChoice.fxml"));
+   Scene funtionalityChoiceScene= new Scene(functionalityChoiceParent);
+   Stage stage = (Stage) (((Node)event.getSource()).getScene().getWindow());
+   stage.hide();
+   stage.setScene(funtionalityChoiceScene);
+   stage.show();
+
+
   } else {
    // ... user chose CANCEL or closed the dialog
   }
-*/
 
    //show
   }catch (Exception exception){
