@@ -20,6 +20,6 @@
       <Label layoutX="94.0" layoutY="400.0" prefHeight="26.0" prefWidth="350.0" text="Terminy wolnych wizyt u danych lekarzy" />
       <ComboBox fx:id="AppointmentDateComboBox" layoutX="93.0" layoutY="353.0" prefHeight="26.0" prefWidth="210.0" />
       <Button fx:id="confirmButton" layoutX="289.0" layoutY="457.0" mnemonicParsing="false" onAction="#setSetConfirmButtonAction" text="Zatwierdź" />
-      <Button fx:id="cancelButton" layoutX="383.0" layoutY="457.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="68.0" text="Anuluj" />
+      <Button fx:id="cancelButton" layoutX="383.0" layoutY="457.0" mnemonicParsing="false" onAction="#setCancelButtonAction" prefHeight="26.0" prefWidth="68.0" text="Anuluj" />
    </children>
 </AnchorPane>

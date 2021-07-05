@@ -229,6 +229,20 @@ public void specializationChoice(){
 
  }
 
+
+
+ public void  setCancelButtonAction(ActionEvent event ) throws IOException {
+  Parent functionalityChoiceParent= FXMLLoader.load(getClass().getResource("sample.fxml"));
+  Scene funtionalityChoiceScene= new Scene(functionalityChoiceParent);
+  Stage stage = (Stage) (((Node)event.getSource()).getScene().getWindow());
+  stage.hide();
+  stage.setScene(funtionalityChoiceScene);
+  stage.show();
+
+ }
+
+
+
  @Override
  public void initialize(URL url, ResourceBundle resourceBundle) {
 
