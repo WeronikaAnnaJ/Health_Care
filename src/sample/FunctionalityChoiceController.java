@@ -10,6 +10,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
@@ -65,7 +66,14 @@ private ImageView graphicImageView;
 
 
     public void  setCancelAppointmentButtonAction(ActionEvent event ){
+
         System.out.println("Odwolaj wizytę");
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setHeaderText("Usuń wizytę - Nie należy do realizowanego przypadku użycia");
+        alert.setContentText("Wróć i Umów wizytę");
+
+        alert.showAndWait();
+
     }
 
 
