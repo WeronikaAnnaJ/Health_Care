@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.ColorAdjust?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="481.0" prefWidth="533.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.FunctionalityChoiceController">
+   <children>
+      <Button fx:id="cancelAppointmentButton" layoutX="175.0" layoutY="384.0" mnemonicParsing="false" onAction="#setCancelAppointmentButtonAction" prefHeight="44.0" prefWidth="184.0" text="Odwołaj wizytę" />
+      <Button fx:id="setAppointmentButton" layoutX="175.0" layoutY="332.0" mnemonicParsing="false" onAction="#setSetAppointmentButtonAction" prefHeight="44.0" prefWidth="184.0" text="Umów wizytę" />
+      <Label fx:id="Greeting" alignment="CENTER" contentDisplay="CENTER" layoutX="-2.0" layoutY="67.0" prefHeight="63.0" prefWidth="533.0" text="WITAJ PACJENCIE">
+         <font>
+            <Font name="System Bold" size="34.0" />
+         </font>
+      </Label>
+      <ImageView fx:id="graphicImageView" fitHeight="134.0" fitWidth="200.0" layoutX="167.0" layoutY="159.0">
+         <image>
+            <Image url="@../../.idea/Images/GRAPHIC.jpg" />
+         </image>
+      </ImageView>
+   </children>
+   <effect>
+      <ColorAdjust />
+   </effect>
+</Pane>
