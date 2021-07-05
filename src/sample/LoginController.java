@@ -12,6 +12,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.io.File;
@@ -41,6 +42,9 @@ public class LoginController implements Initializable{
     @FXML
     private ImageView lockImageView;
 
+    @FXML
+    private AnchorPane backgroundPane;
+
     private Stage stage;
     private Scene scene;
     private Parent root;
@@ -50,6 +54,7 @@ public class LoginController implements Initializable{
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle){
+
         File lockFile= new File(".idea/Images/Lock.Icon.png");
         Image lockImage= new Image(lockFile.toURI().toString());
         lockImageView.setImage(lockImage);

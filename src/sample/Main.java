@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -22,8 +23,11 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("Login.fxml"));
+
         primaryStage.initStyle(StageStyle.DECORATED);
-        primaryStage.setScene(new Scene(root, 500, 500));
+        Scene scene=new Scene(root, 600, 550);
+        primaryStage.setScene(scene);
+
         primaryStage.show();
 
 
@@ -385,8 +389,18 @@ public class Main extends Application {
             List<Referral> referrals= Referral.getActualReferralForPacient(patientExample, MedicalSpecialist.Gynaecologist);
             System.out.println(Referral.getMostUrgentReferral(referrals));
 
+            LocalDateTime localDateTime= LocalDateTime.of(2021,10,10,12,10);
+            System.out.println(localDateTime.toLocalDate());
+            System.out.println(localDateTime.toLocalTime());
+            Appointment appointment= new Appointment(LocalDateTime.of(2021,10,10,12,10), patientExample);
+          //  appointment.addConnection("patient","appointment", patientExample);
+            List<Appointment> appointments= Appointment.getAppointments(patientExample);
+            for (Appointment appointment1 : appointments){
+                System.out.println(appointment1);
+            }
 
             List<RowForComboBox> rows= Doctor.getSegregatedAvailableDatesForDoctors(medicalFacility, MedicalSpecialist.FamilyDoctor);
+
 
             System.out.println(rows.size());
             for(RowForComboBox row : rows) {

@@ -1,7 +1,10 @@
 package sample;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
 
 
 enum Status{
@@ -35,6 +38,15 @@ public class Appointment extends AssociationConstraint {
 
     }
 
+    Appointment(LocalDateTime localDateTime, Patient patient) throws Exception {
+        super();
+        this.date=localDateTime.toLocalDate();
+        this.startTime=localDateTime.toLocalTime();
+        currentStatus=Status.WAITING;
+        patient.addConnection("appointment", "patient", this);
+
+    }
+
     public void setEndTime(LocalTime endTime){
         this.endTime=endTime;
         currentStatus=Status.CONDUCTED;
@@ -53,8 +65,30 @@ public class Appointment extends AssociationConstraint {
     }
 
 
+    //getAppointmentsForPatient
+
+    public static List<Appointment> getAppointments(Patient patient) throws Exception {
+        List<Appointment> appointments= new ArrayList<>();
+        ObjectAssociation [] objects= patient.getConnections("appointment");
+        for (ObjectAssociation object: objects) {
+            appointments.add((Appointment) object);
+            System.out.println( (Appointment) object);
+        }
+        return appointments;
+    }
+
+    //addApointment to patient
 
 
-
-
+    @Override
+    public String toString() {
+        return "Appointment{" +
+                "date=" + date +
+                ", startTime=" + startTime +
+                ", endTime=" + endTime +
+                ", cost=" + cost +
+                ", recommendations='" + recommendations + '\'' +
+                ", currentStatus=" + currentStatus +
+                '}';
+    }
 }

@@ -18,6 +18,7 @@ import javafx.stage.Stage;
 import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.List;
@@ -175,35 +176,52 @@ public void specializationChoice(){
 
  public void  setSetConfirmButtonAction(ActionEvent event ) throws IOException {
   System.out.println("Zatwierdz");
-  RowForComboBox rowForComboBox= null;
-  for(int i =0 ; i < rowsString.size();i++){
-   if(rowsString.get(i)== AppointmentDateComboBox.getValue()){
-    rowForComboBox= rows.get(i);
+
+  try {
+   RowForComboBox rowForComboBox = null;
+   for (int i = 0; i < rowsString.size(); i++) {
+    if (rowsString.get(i) == AppointmentDateComboBox.getValue()) {
+     rowForComboBox = rows.get(i);
+    }
    }
-  }
-  System.out.println(rowForComboBox);
-  //set appointmemt term not available anymore
-  rowForComboBox.getDoctor().changeDateAvailability(rowForComboBox.getLocalDateTime(),false);
-  String doctorName =rowForComboBox.getDoctor().getName() + " " + rowForComboBox.getDoctor().getLastName();
-  DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-  String dateAndTime = rowForComboBox.getLocalDateTime().format(formatter);
 
-  Alert alert = new Alert(Alert.AlertType.INFORMATION);
-  alert.setTitle("Potwierdzenie wizyty");
-  alert.setHeaderText("Wybrana wizyta");
-  alert.setContentText("Lekarz: "+ dateAndTime +"\nLekarz: " + doctorName);
 
-  Optional<ButtonType> result = alert.showAndWait();
-  if (result.get() == ButtonType.OK){
+   System.out.println(rowForComboBox);
+   //set appointmemt term not available anymore
+   rowForComboBox.getDoctor().changeDateAvailability(rowForComboBox.getLocalDateTime(), false);
+   //utworz wizyte i polacz z pacjentem
+
+   Appointment appointment= new Appointment(rowForComboBox.getLocalDateTime(), patientExample);
+   Appointment.getAppointments(patientExample);
+
+   String doctorName = rowForComboBox.getDoctor().getName() + " " + rowForComboBox.getDoctor().getLastName();
+   DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+   String dateAndTime = rowForComboBox.getLocalDateTime().format(formatter);
+
+   Alert alert = new Alert(Alert.AlertType.INFORMATION);
+   alert.setTitle("Potwierdzenie wizyty");
+   alert.setHeaderText("Wybrana wizyta");
+   alert.setContentText("Lekarz: " + dateAndTime + "\nLekarz: " + doctorName);
+
+   Optional<ButtonType> result = alert.showAndWait();
+ /* if (result.get() == ButtonType.OK){
    // ... user chose OK
   } else {
    // ... user chose CANCEL or closed the dialog
   }
+*/
 
+   //show
+  }catch (Exception exception){
 
-  //show
+    Alert alert = new Alert(Alert.AlertType.ERROR);
+    alert.setTitle("Wystąpił błąd");
+    alert.setHeaderText("Nie wybrano odpowiednich danych do zatwierdzenia wizyty");
+    alert.setContentText("Uzupełnij wymagane pola");
+    alert.showAndWait();
+   }
+
  }
-
 
  @Override
  public void initialize(URL url, ResourceBundle resourceBundle) {
