@@ -3,7 +3,11 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.Glow?>
+<?import javafx.scene.effect.Light.Distant?>
+<?import javafx.scene.effect.Lighting?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane fx:id="backgroundPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="605.0" prefWidth="522.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.AppointmentChoiceController">
@@ -18,12 +22,12 @@
             <Font name="System Bold" size="12.0" />
          </font></Label>
       <ComboBox fx:id="specializationComboBox" layoutX="59.0" layoutY="196.0" onAction="#specializationChoice" prefHeight="26.0" prefWidth="350.0" />
-      <Label fx:id="refferalLabel" layoutX="69.0" layoutY="247.0" prefHeight="34.0" prefWidth="350.0" text="Umówienie wizyty do specjalizacsty, z wyjątkiem lekarza rodzinnego, wymaga wcześniej wystawionego skierowania" textOverrun="CLIP" wrapText="true" />
+      <Label fx:id="InformationSpecializationLabel" layoutX="69.0" layoutY="253.0" prefHeight="34.0" prefWidth="350.0" text="Umówienie wizyty do specjalizacsty, z wyjątkiem lekarza rodzinnego, wymaga wcześniej wystawionego skierowania" textOverrun="CLIP" wrapText="true" />
       <Label layoutX="69.0" layoutY="354.0" text="Wybierz termin" textFill="#31af91">
          <font>
             <Font name="System Bold" size="12.0" />
          </font></Label>
-      <Label fx:id="dateLabel" layoutX="69.0" layoutY="427.0" prefHeight="26.0" prefWidth="350.0" text="Terminy wolnych wizyt u danych lekarzy" />
+      <Label fx:id="InformationDateLabel" layoutX="69.0" layoutY="435.0" prefHeight="26.0" prefWidth="350.0" text="Terminy wolnych wizyt u danych lekarzy" />
       <ComboBox fx:id="AppointmentDateComboBox" layoutX="59.0" layoutY="382.0" prefHeight="26.0" prefWidth="350.0" />
       <Button fx:id="confirmButton" contentDisplay="TOP" layoutX="234.0" layoutY="531.0" mnemonicParsing="false" onAction="#setSetConfirmButtonAction" prefHeight="42.0" prefWidth="111.0" style="-fx-background-color: #31af91;" text="Zatwierdź" textFill="WHITE">
          <font>
@@ -33,5 +37,29 @@
          <font>
             <Font name="System Bold" size="12.0" />
          </font></Button>
+      <Label fx:id="noRefferalLabel" layoutX="59.0" layoutY="228.0" prefHeight="18.0" prefWidth="328.0" text=" Brak dostępnego skierowanie do wyberanego specjalisty" textFill="#cf3434" visible="false">
+         <font>
+            <Font name="System Bold Italic" size="12.0" />
+         </font>
+         <effect>
+            <Lighting diffuseConstant="2.0" specularConstant="1.5" specularExponent="12.71" surfaceScale="0.0">
+               <bumpInput>
+                  <Glow />
+               </bumpInput>
+               <light>
+                  <Light.Distant>
+                     <color>
+                        <Color red="0.821052610874176" green="0.12771929800510406" blue="0.12771929800510406" />
+                     </color>
+                  </Light.Distant>
+               </light>
+            </Lighting>
+         </effect>
+      </Label>
+      <Label fx:id="noAppointmentsLabel" layoutX="59.0" layoutY="416.0" prefHeight="18.0" prefWidth="328.0" text="Przykro nam, brak wolnych terminów wizyt  :(" textFill="#31af91" visible="false">
+         <font>
+            <Font name="System Bold Italic" size="12.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

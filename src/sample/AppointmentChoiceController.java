@@ -13,6 +13,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
@@ -32,17 +33,10 @@ public class AppointmentChoiceController implements Initializable {
      private List<RowForComboBox> rows;
      private List<String> rowsString;
 
-     @FXML
-     private Label InformationSpecializationLabel;
 
-     @FXML
-     private Label InformationDateLabel;
 
-     @FXML
+    @FXML
      private ComboBox<String> AppointmentDateComboBox;
-
-     @FXML
-     private Button confirmButton;
 
      @FXML
      private Button cancelButton;
@@ -53,6 +47,11 @@ public class AppointmentChoiceController implements Initializable {
      @FXML
      private  Pane backgroundPane;
 
+     @FXML
+     private Label noRefferalLabel;
+
+     @FXML
+     private Label noAppointmentsLabel;
 
 
 
@@ -80,6 +79,8 @@ public class AppointmentChoiceController implements Initializable {
 
      @FXML
     public void specializationChoice(){
+         noRefferalLabel.setVisible(false);
+         noAppointmentsLabel.setVisible(false);
          MedicalSpecialist medicalSpecialist= specializationDictionary.get(specializationComboBox.getValue());
          System.out.println(medicalSpecialist);
 
@@ -90,7 +91,7 @@ public class AppointmentChoiceController implements Initializable {
                  rows=rowsForComboBox;
                  if(rowsForComboBox.isEmpty()){
                      AppointmentDateComboBox.getItems().clear();
-                     AppointmentDateComboBox.getItems().add("No available appointments");
+                     AppointmentDateComboBox.getItems().add("Brak terminów");
                  }else {
                      List<String> rowsStringForComboBox = new ArrayList<>();
                      rowsString=rowsStringForComboBox;
@@ -108,8 +109,9 @@ public class AppointmentChoiceController implements Initializable {
              } catch (Exception e) {
                  e.printStackTrace();
                  //what if there is no data for doctors or appointmens
+                 noAppointmentsLabel.setVisible(true);
                  AppointmentDateComboBox.getItems().clear();
-                 AppointmentDateComboBox.getItems().add("No available dates");
+                 AppointmentDateComboBox.getItems().add("Brak terminów");
              }
 
          }else {
@@ -122,8 +124,9 @@ public class AppointmentChoiceController implements Initializable {
                      List<RowForComboBox> rowsForComboBox = Doctor.getSegregatedAvailableDatesForDoctors(medicalFacilityExample, medicalSpecialist);
                      rows = rowsForComboBox;
                      if (rowsForComboBox.isEmpty()) {
+                         noAppointmentsLabel.setVisible(true);
                          AppointmentDateComboBox.getItems().clear();
-                         AppointmentDateComboBox.getItems().add("No available appointments");
+                         AppointmentDateComboBox.getItems().add("Brak terminów");
                      } else {
                          List<String> rowsStringForComboBox = new ArrayList<>();
                          rowsString = rowsStringForComboBox;
@@ -142,14 +145,16 @@ public class AppointmentChoiceController implements Initializable {
                      }
                  } catch (Exception e) {
                      e.printStackTrace();
-                     //what if there is no data for doctors or appointmens
+                     noAppointmentsLabel.setVisible(true);
                      AppointmentDateComboBox.getItems().clear();
-                     AppointmentDateComboBox.getItems().add("No available dates");
+                     AppointmentDateComboBox.getItems().add("Brak terminów");
+
                  }
              } catch (Exception e) {
                  System.out.println("no refferal");
+                 noRefferalLabel.setVisible(true);
                  AppointmentDateComboBox.getItems().clear();
-                 AppointmentDateComboBox.getItems().add("Not available");
+                 AppointmentDateComboBox.getItems().add("Brak skierowaia - Terminy niedostępne");
              }
          }
     }
@@ -200,7 +205,6 @@ public class AppointmentChoiceController implements Initializable {
                 alert.showAndWait();
           }
      }
-
 
 
 
