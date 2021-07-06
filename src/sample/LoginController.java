@@ -45,17 +45,13 @@ public class LoginController implements Initializable{
     @FXML
     private Pane backgroundPane;
 
-    private Stage stage;
-    private Scene scene;
-    private Parent root;
-
-
     @FXML
     private ImageView background;
 
+
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle){
-
 
         File imageFile= new File(".idea/Images/Background_Login.jpg");
         Image imageImage= new Image(imageFile.toURI().toString());
@@ -66,11 +62,7 @@ public class LoginController implements Initializable{
                 BackgroundRepeat.NO_REPEAT,
                 BackgroundPosition.DEFAULT,
                 BackgroundSize.DEFAULT);
-
-        // create Background
         Background background = new Background(backgroundimage);
-
-        // set background
         backgroundPane.setBackground(background);
 
         File lockFile= new File(".idea/Images/PasswordIconLogin.png");
@@ -83,6 +75,7 @@ public class LoginController implements Initializable{
     }
 
 
+
     public void  setAppointmentButtonAction(ActionEvent event ) throws IOException {
         System.out.println("Zaloguj się");
         Parent functionalityChoiceParent= FXMLLoader.load(getClass().getResource("sample.fxml"));
@@ -91,8 +84,6 @@ public class LoginController implements Initializable{
         stage.hide();
         stage.setScene(funtionalityChoiceScene);
         stage.show();
-
-
     }
 
 
@@ -105,7 +96,6 @@ public class LoginController implements Initializable{
         stage.hide();
         stage.setScene(funtionalityChoiceScene);
         stage.show();
-
     }
 
 }
