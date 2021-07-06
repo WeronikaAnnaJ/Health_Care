@@ -20,8 +20,6 @@ public abstract class ObjectLifeSpan implements Serializable {
      */
 
     public ObjectLifeSpan() {
-
-        System.out.println("Object life span");
         List extent = null;
         Class theClass = this.getClass();
 

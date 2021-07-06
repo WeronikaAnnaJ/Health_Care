@@ -20,17 +20,13 @@ public class Doctor extends Medic { //klasa Lekarz dziedzicząca po klasie Praco
 
     private String PWZ;
     private EnumSet<MedicalSpecialist> specializations;//Specjalny rodzaj kolekcji pełniący rolę dyskryminatora
-
-  //  private static Map<Doctor, Map<LocalDateTime, Boolean>> datesForDoctors = new HashMap<>();
     private static Map<String, Doctor> allPWZ = new LinkedHashMap<>();
-
     private Map<LocalDateTime, Boolean> availableDates = new TreeMap<LocalDateTime, Boolean>();
 
 
 
     Doctor(String name, String middleName, String maidenName, String lastName, String pesel, LocalDate birthDate, String phoneNumber, String emailAddress, String PWZ, MedicalSpecialist specialization) throws Exception {
         super(name, middleName, maidenName, lastName, pesel, birthDate, phoneNumber, emailAddress);
-
 
         /** Ograniczenie {Unique}  **/
         if (allPWZ.containsKey(pesel)) { //sprawdzenie, czy podany PESEL już istnieje i jest zapisany
@@ -47,30 +43,28 @@ public class Doctor extends Medic { //klasa Lekarz dziedzicząca po klasie Praco
 
 
     /** Dostępne daty  **/
-    //moze dodaj tak zeby calą liste mofło się dodawać
 
-    //dodać doostępną date
     public void addAvaliableDate(LocalDateTime dateTime) {
+
         this.availableDates.put(dateTime, true);
     }
 
-    //zmień dostępność daty
     public void changeDateAvailability(LocalDateTime date, boolean newAvailability) {
         this.availableDates.replace(date, newAvailability);
     }
 
-    //sprawdż czy data jest dostępna
+
     public boolean isDateAvailable(LocalDateTime dateTime) {
         return availableDates.get(dateTime);
     }
 
-    //zwróc daty dla danego lekarza
+
     public Map<LocalDateTime, Boolean> getDates() {
         return availableDates;
     }
 
 
-    //wyświetl daty dla danego lekarza
+
     public void showDates() {
         System.out.println("Dates for doctor : " + this);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
@@ -78,20 +72,11 @@ public class Doctor extends Medic { //klasa Lekarz dziedzicząca po klasie Praco
         if(availableDates.isEmpty()){
             System.out.println("No dates. ");
         }else{
-
             availableDates.forEach((key, value) -> {
                 System.out.println("Available : " + value + "\nTime : " + key.format(formatter) + " \nDoctor : " + this.getName() + " " + this.getLastName() + "\n" );
             });
-
         }
-
     }
-
-    //zmień na date,na zajęte i odwrotnie
-
-    //dodaj daty lekarza do ogólnych dat dla wszystkich lekarzy, albo to już w tamtej klasie przy przetwarzaniu danych?
-
-    //może jako metoda a nei stałe pole
 
 
 
@@ -102,10 +87,8 @@ public class Doctor extends Medic { //klasa Lekarz dziedzicząca po klasie Praco
             Map<LocalDateTime,Boolean> dates=doctor.getDates();
             datesForDoctors.put(doctor,dates);
         }
-
         return datesForDoctors;
     }
-
 
 
 
@@ -128,11 +111,7 @@ public class Doctor extends Medic { //klasa Lekarz dziedzicząca po klasie Praco
         informations= informations.stream()
                 .sorted(Comparator.comparing(RowForComboBox::getLocalDateTime)).collect(Collectors.toList());
         return informations;
-        //segregate list
-        //foreach zmien 1 cześć na datę i godzinę i przesuwaj w lewo dopóki nie będzie poprzednia mniejsza
     }
-
-
 
 
 
@@ -143,8 +122,9 @@ public class Doctor extends Medic { //klasa Lekarz dziedzicząca po klasie Praco
         datesForDoctors.forEach((key, value) -> {
             key.showDates();
             System.out.println();
-    });
+        });
     }
+
 
 
     public static void  showMap(Map<LocalDateTime, Boolean> dates){
@@ -152,9 +132,9 @@ public class Doctor extends Medic { //klasa Lekarz dziedzicząca po klasie Praco
         dates.forEach((key, value) -> {
             System.out.println("Available : " + value + "\nTime : " + key.format(formatter) );
         });
-
-
     }
+
+
 
     public static List<Doctor> getDoctors(MedicalSpecialist medicalSpecialist, MedicalFacility medicalFacility) throws Exception {
         List<Doctor> allDoctors= Doctor.getDoctorsEmployedIn(medicalFacility);
@@ -169,7 +149,7 @@ public class Doctor extends Medic { //klasa Lekarz dziedzicząca po klasie Praco
     }
 
 
-    //metoda zwracająca wszytkie wizyty dozwolone dla danego doktora
+
     public  Map<LocalDateTime, Boolean> getDatesWhere(Boolean available){
         Map<LocalDateTime, Boolean> allDates= this.availableDates;
         Map<LocalDateTime, Boolean> availableDates= new TreeMap<>();
@@ -182,7 +162,7 @@ public class Doctor extends Medic { //klasa Lekarz dziedzicząca po klasie Praco
     }
 
 
-    //metoda zwracająca wszytkie wizyty dozwolone dla danego doktora
+
     public  List<LocalDateTime> getAvailableSegregateDates(){
         Map<LocalDateTime, Boolean> allDates= this.availableDates;
         List<LocalDateTime> availableDates= new ArrayList<>();
@@ -195,16 +175,12 @@ public class Doctor extends Medic { //klasa Lekarz dziedzicząca po klasie Praco
         return availableDates;
     }
 
-    /** -----------------------  **/
 
 
 
     public EnumSet<MedicalSpecialist> getSpecializations(){
         return this.specializations;
     }
-
-
-
 
 
 
@@ -227,49 +203,31 @@ public class Doctor extends Medic { //klasa Lekarz dziedzicząca po klasie Praco
         try {
             Map<String, LinkedHashMap<Object, ObjectAssociation>> con = medicalFacility.getConections();
             List<Doctor> doctorsList= new ArrayList<>();
-          //  LinkedHashMap<Object, ObjectAssociation> objects = con.get("employ");
            List<Doctor>  list =  new ArrayList<>();
-
             try {
-                System.out.println("METOD");
                 List<ObjectLifeSpan> getExtentForClass= ObjectLifeSpan.getExtentForClass(MedicalFacility.class);
                 System.out.println();
                 for (ObjectLifeSpan o: getExtentForClass) {
                     AssociationConstraint associationConstraint= (AssociationConstraint) o ;
                     Map<String, LinkedHashMap<Object, ObjectAssociation>> con2 = associationConstraint.getConections();
-                    System.out.println("association");
                     con2.forEach((key, value) ->{
-                        System.out.println(key + ":" + value + "  " );
-                        System.out.println("Key");
-                        System.out.println(value);
                         LinkedHashMap<Object, ObjectAssociation> linkedHashMap =value;
-                        System.out.println("List");
-                        System.out.println(linkedHashMap);
-                        System.out.println("IN LINKED HASH MAP");
                         linkedHashMap.forEach((key1, value1) ->{
-                            System.out.println(key1 + ":" + value1 + "  " );
                             list.add((Doctor) key1);
-                            System.out.println("added to list" + (Doctor) key1);
-
-                    } );
-
-
-
-                });}
+                        });
+                    });
+                }
             }catch (Exception e){
-                System.out.println("BŁAD W POBIERANIU");
+               e.printStackTrace();
             }
-
             for (Object object : list) {
                 if (object instanceof Doctor) {
                     doctors.add((Doctor) object);
                 }
-
             }
         } catch (Exception e) {
             e.printStackTrace();
-        }           // }
-
+        }
         return doctors;
     }
 
@@ -278,7 +236,6 @@ public class Doctor extends Medic { //klasa Lekarz dziedzicząca po klasie Praco
     public static MedicalSpecialist getMedicalSpecialistFor(String specialization)throws Exception{
 
         switch (specialization){
-
 
             case "Cardiologist":
                 return MedicalSpecialist.Cardiologist;

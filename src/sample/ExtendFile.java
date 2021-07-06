@@ -29,7 +29,6 @@ import java.io.ObjectOutputStream;
 
 
 
-
         /**
          * Metoda umożliwiająca na odczyt z pliku ekstensji klasy otrzymanej za pomocą metody z klasy ObjectLifeSpam
          *

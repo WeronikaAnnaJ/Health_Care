@@ -26,36 +26,30 @@ public class MedicalExamination extends AssociationConstraint {
         this.interpretation = interpretation;
     }
 
+
     public void setDescription(String description) {
         this.description = description;
     }
+
+
 
     public void serResult(String result, String norm) {
         this.result = result;
         this.norm = norm;
     }
 
-    //POBIERZ NAJNOWSZE BADANIA
-    //POBIERZ REZULTATY BADAIA
+
 
     public String getResult() {
         return result;
     }
 
     public static MedicalExamination getLatestExamination() {
-
-        //pobierz wszytkie badania tego pacjenta
-        //wybierz te ktore ma najmniejsza date
-        //zwróc to badanie
-
         return null;
     }
 
+
     public static List<String> getExaminations(String name) {
-
-        //pobierz wszytkie badania tego rodzajju po kolei
-        //zwróc to badanie po kolei połącz w stringa result norme i date
-
         return null;
     }
 

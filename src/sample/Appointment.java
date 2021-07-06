@@ -19,12 +19,11 @@ public class Appointment extends AssociationConstraint {
     private LocalDate date;
     private LocalTime startTime;
     private LocalTime endTime;
-    //oblicz czas trwania wizyty
-    //REFUNDACJA
-
     private float cost;
     private String recommendations;
     private Status currentStatus;
+
+
 
     Appointment(LocalDate date, LocalTime startTime, float cost) throws Exception {
         super();
@@ -35,8 +34,8 @@ public class Appointment extends AssociationConstraint {
         this.startTime=startTime;
         this.cost=cost;
         currentStatus=Status.WAITING;
-
     }
+
 
     Appointment(LocalDateTime localDateTime, Patient patient) throws Exception {
         super();
@@ -44,28 +43,32 @@ public class Appointment extends AssociationConstraint {
         this.startTime=localDateTime.toLocalTime();
         currentStatus=Status.WAITING;
         patient.addConnection("appointment", "patient", this);
-
     }
+
 
     public void setEndTime(LocalTime endTime){
         this.endTime=endTime;
         currentStatus=Status.CONDUCTED;
     }
 
-    public void setRecommendations(String recommendations){
 
+    public void setRecommendations(String recommendations){
         this.recommendations=recommendations;
     }
 
+
     public void cancelAppointment(){
+
         currentStatus=Status.CANCELED;
     }
+
+
+
     public void registerStartingApoointment(){
+
         currentStatus=Status.UNDARWAY;
     }
 
-
-    //getAppointmentsForPatient
 
     public static List<Appointment> getAppointments(Patient patient) throws Exception {
         List<Appointment> appointments= new ArrayList<>();
@@ -77,7 +80,6 @@ public class Appointment extends AssociationConstraint {
         return appointments;
     }
 
-    //addApointment to patient
 
 
     @Override

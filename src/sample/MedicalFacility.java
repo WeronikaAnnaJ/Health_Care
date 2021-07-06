@@ -7,7 +7,7 @@ import java.util.Map;
 
 public class MedicalFacility extends AssociationConstraint{
 
-    //ADRES MOZE JAKO KL
+
     private String address;
     private String name;
     private String email;
@@ -15,7 +15,6 @@ public class MedicalFacility extends AssociationConstraint{
     private List<String> cooperatingFacilities;
     private LocalTime openingHours;
     private LocalTime closingHours;
-    //dni otwarcia format?
     private String openOn;
 
 
@@ -43,8 +42,6 @@ public class MedicalFacility extends AssociationConstraint{
     public void setEmail(String email) {
         this.email=email;
     }
-
-
 
     public void setOpenOn(String days){
         openOn=days;
@@ -78,5 +75,5 @@ public class MedicalFacility extends AssociationConstraint{
     }
 
 
-    //zwróc zatrudnionych lekarzy
+
 }

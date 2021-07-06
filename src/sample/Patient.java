@@ -23,6 +23,7 @@ public class Patient extends  Person{
     }
 
 
+
     Patient(String name, String middleName, String maidenName, String lastName, String pesel, LocalDate birthDate, String phoneNumber, String emailAddress) throws Exception {
         super(name, middleName, maidenName, lastName, pesel, birthDate, phoneNumber, emailAddress);
         registrationDate=LocalDate.now();
@@ -38,6 +39,7 @@ public class Patient extends  Person{
 
 
 
+
     public void addOperations(String operation){
         if(operations.contains(operation)){
             System.out.println("List already contains " + operation);
@@ -45,6 +47,7 @@ public class Patient extends  Person{
             operations.add(operation);
         }
     }
+
 
 
     public void addFamilyHistoryOfDeseases(String familyHistoryOfDesease){
@@ -71,6 +74,8 @@ public class Patient extends  Person{
     }
 
 
+
+
     public void showOperations(){
         if(operations.isEmpty()){
             System.out.println("There is no operations.");
@@ -83,6 +88,7 @@ public class Patient extends  Person{
     }
 
 
+
     public void showFamilyHistoryOfDeseases(){
         if(familyHistoryOfDeseases.isEmpty()){
             System.out.println("There is no family history of deseases.");
@@ -93,6 +99,8 @@ public class Patient extends  Person{
             }
         }
     }
+
+
 
 
     public static Patient getPatientExample() {

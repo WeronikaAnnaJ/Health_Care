@@ -6,8 +6,7 @@ import java.util.List;
 
 public class WardClerk extends Employee{
 
-    List<String>languages= new ArrayList<>();// conajmniej 2 języki
-
+    List<String>languages= new ArrayList<>();
 
     WardClerk(String name, String middleName, String maidenName, String lastName, String pesel, LocalDate birthDate, String phoneNumber, String emailAddress,
               List<String> languages) throws Exception {
@@ -18,6 +17,8 @@ public class WardClerk extends Employee{
         this.languages=languages;
     }
 
+
+
     public void addLanguage(String language){
         if(!languages.contains(language)){
             languages.add(language);
@@ -27,12 +28,14 @@ public class WardClerk extends Employee{
     }
 
 
+
     public void showLanguages(){
         System.out.println("Languages: ");
         for(String language : languages){
             System.out.println(language);
         }
     }
+
 
 
     @Override

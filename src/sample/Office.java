@@ -10,12 +10,7 @@ public class Office extends  AssociationConstraint{
     private int number;
     private List<String> medicalEquioment= new ArrayList<>();
     private boolean isSanitized;
-
     private static Map<Invoice, Office> numbers=new LinkedHashMap<>();
-
-    //czywolny
-    //czy zarezerwownay w klasie rezerwacja gabinetu
-    //zlecenie dezynfekcji po każdym wynajęciu
 
 
     Office(int number) throws Exception {
@@ -27,14 +22,18 @@ public class Office extends  AssociationConstraint{
         this.number=number;//niepowtarzalny
     }
 
+
     public void addMedicalEquioment(String medicalEquioment){
         this.medicalEquioment.add(medicalEquioment);
-
     }
+
+
 
     public void sanitizeOffice(){
         isSanitized=true;
     }
+
+
 
     public void setNeedForSanitize(){
         isSanitized=false;

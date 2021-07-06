@@ -7,11 +7,15 @@ public class RowForComboBox extends ObjectAssociation{
     private  Doctor doctor;
     private LocalDateTime localDateTime;
 
+
+
     RowForComboBox(Doctor doctor, LocalDateTime localDateTime){
         super();
         this.doctor=doctor;
         this.localDateTime=localDateTime;
     }
+
+
 
     public Doctor getDoctor() {
         return doctor;
@@ -20,6 +24,9 @@ public class RowForComboBox extends ObjectAssociation{
     public LocalDateTime getLocalDateTime() {
         return localDateTime;
     }
+
+
+
 
     @Override
     public String toString() {

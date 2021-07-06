@@ -22,7 +22,7 @@ public  class ObjectAssociation extends ObjectLifeSpan implements Serializable {
 
     public ObjectAssociation() { //kontruktor
         super(); //wywołanie konstruktora z nadklasy
-        System.out.println("ObjectAssociation");
+
 
     }
 
