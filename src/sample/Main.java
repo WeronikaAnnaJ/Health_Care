@@ -4,14 +4,10 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-
-import javax.swing.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -19,20 +15,17 @@ import java.util.List;
 import java.util.Map;
 
 public class Main extends Application {
-    Scene sceneLogin, sceneAppointmentChoice;
 
     @Override
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("Login.fxml"));
-
         primaryStage.initStyle(StageStyle.DECORATED);
         Scene scene=new Scene(root, 650, 605);
+        primaryStage.setResizable(false);
         primaryStage.setScene(scene);
-
         primaryStage.show();
-
-
     }
+
 
 
     public static void main(String[] args) {
@@ -46,7 +39,6 @@ public class Main extends Application {
             EmploymentContract employmentContract= new EmploymentContract(Tenure.FullTime);
             employmentContract.setSalary(3000);
 
-            //połaczenie z zatrudnieniem 1 do 1 czy jak
             employee.addConnection("employed under","apply to", employmentContract);
             employee.showConnections("employed under");
 
@@ -68,7 +60,6 @@ public class Main extends Application {
             EmploymentContract employmentContract0= new EmploymentContract(Tenure.FullTime);
             employmentContract0.setSalary(3000);
 
-            //połaczenie z zatrudnieniem 1 do 1 czy jak
             wardClerk0.addConnection("employed under","apply to", employmentContract0);
             wardClerk0.showConnections("employed under");
 
@@ -91,7 +82,6 @@ public class Main extends Application {
             EmploymentContract employmentContract1= new EmploymentContract(Tenure.FullTime);
             employmentContract1.setSalary(3000);
 
-            //połaczenie z zatrudnieniem 1 do 1 czy jak
             wardClerk1.addConnection("employed under","apply to", employmentContract1);
             wardClerk1.showConnections("employed under");
         } catch (Exception e) {
@@ -115,8 +105,6 @@ public class Main extends Application {
             EmploymentContract employmentContract2= new EmploymentContract(Tenure.FullTime);
             employmentContract2.setSalary(3000);
 
-
-            //połaczenie z zatrudnieniem 1 do 1 czy jak
             wardClerk2.addConnection("employed under","apply to", employmentContract2);
             wardClerk2.showConnections("employed under");
         } catch (Exception e) {
@@ -141,7 +129,6 @@ public class Main extends Application {
             EmploymentContract employmentContract3= new EmploymentContract(Tenure.FullTime);
             employmentContract3.setSalary(3000);
 
-            //połaczenie z zatrudnieniem 1 do 1 czy jak
             wardClerk3.addConnection("employed under","apply to", employmentContract3);
             wardClerk3.showConnections("employed under");
 
@@ -150,50 +137,14 @@ public class Main extends Application {
         }
 
 
-        //utwózz lekarza dodaj go do lekarzy
-
-        //moze zmienić ze zamiast klasy dane medyczne i pacjent połączyć to w jedna klase pacjent
-
-
-
-        //stworzyc pacjenta
-        try {
-            //  Patient patient= new Patient("Karol", "Wojciech", null, "Karolak", "5", LocalDate.of(1990, 12, 12), "111-111-111", "karol.wojciech.karolak@wp.pl");
-            //PRZEJRZEC LEKARZY ZATRUDNIONYCH I WYBRAC LEKARZA Prowadzacego
-            //metoda dla lekarza wybierz lekarzy static
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        //stworzyc dokumentacje medyczna
-        //dodac lekarza prowadzacego
-
-        //tworzyc recepte
-        //lekarz zleca recepte
-
-        //sprawdz to zeby pozyskiwac info z połaczenia
-        //zobacz recepte dla tego pacjenta
-
-
-
-
-        //Stworzyć placówkę medyczną
-
         MedicalFacility medicalFacility= MedicalFacility.getMedicalFacilityExample();
-
-
         System.out.println(medicalFacility);
 
-        //utworzyć lekarzy 4
         try{
             Doctor doctor= new Doctor("Karol", "Wojciech", null, "Karolak", "7", LocalDate.of(1990, 12, 12), "111-111-111", "karol.wojciech.karolak@wp.pl","1", MedicalSpecialist.Dermatologist);
             doctor.addSpecialization(MedicalSpecialist.FamilyDoctor);
             System.out.println(doctor);
             doctor.showSpecializations();
-
-            //zatrudnienie w placówce
-
             doctor.addConnection("employed","employ",medicalFacility);
 
             doctor.addAvaliableDate(LocalDateTime.of(2021,6,6,8,15) );
@@ -213,9 +164,6 @@ public class Main extends Application {
             doctor1.addSpecialization(MedicalSpecialist.Gynaecologist);
             System.out.println(doctor1);
             doctor1.showSpecializations();
-
-            //zatrudnienie w placówce
-
             doctor1.addConnection("employed","employ",medicalFacility);
 
             doctor1.addAvaliableDate(LocalDateTime.of(2021,6,6,8,15) );
@@ -247,16 +195,12 @@ public class Main extends Application {
             System.out.println(doctor2);
             doctor2.showSpecializations();
 
-
             doctor2.addAvaliableDate(LocalDateTime.of(2021,6,8,8,15) );
             doctor2.addAvaliableDate(LocalDateTime.of(2021,6,9,8,15) );
             doctor2.addAvaliableDate(LocalDateTime.of(2021,6,10,8,15) );
             doctor2.addAvaliableDate(LocalDateTime.of(2021,6,11,8,0) );
             doctor2.addAvaliableDate(LocalDateTime.of(2021,6,12,8,0) );
-
             doctor2.showDates();
-
-            //zatrudnienie w placówce
 
             doctor2.addConnection("employed","employ",medicalFacility);
         }catch(Exception e){
@@ -270,9 +214,6 @@ public class Main extends Application {
             doctor3.addSpecialization(MedicalSpecialist.Cardiologist);
             System.out.println(doctor3);
             doctor3.showSpecializations();
-
-            //zatrudnienie w placówce
-
             doctor3.addConnection("employed","employ",medicalFacility);
 
 /*
@@ -291,19 +232,13 @@ public class Main extends Application {
         }
 
 
-
-        //wyświtl wszystkich lekarzy z placówek
         try {
             medicalFacility.showConnections("employ");
         } catch (Exception e) {
             e.printStackTrace();
         }
-        //przyłączyć lekarzy do placówki medycznej
 
 
-
-
-        //sprawdzenie metody getAllDoctors
         try {
             List<Doctor> doctors= Doctor.getDoctorsEmployedIn(medicalFacility);
             for(Doctor doctor : doctors){
@@ -313,18 +248,11 @@ public class Main extends Application {
             e.printStackTrace();
         }
 
-
-
-        System.out.println("Object Life Span");
-        //stwórz pacjentów 5 i dodaj im lekarza prowadzącego, a co jak pacjent nie ma lekarza prowadzącego
-        //sprawdz czy sa dodanie ich kolekcja do zapisywania
         List<ObjectLifeSpan> ob= ObjectLifeSpan.getExtentForClass(WardClerk.class);
         for(ObjectLifeSpan o: ob){
             System.out.println(o);
         }
 
-     //   JFrame frame=new setAppointment("My Appointment");
-   //     frame.setVisible(true);
         List<String> doctorsForApoointment=new ArrayList<>();
         doctorsForApoointment.add("Cardiologist");
         doctorsForApoointment.add("Dermatologist");
@@ -335,15 +263,11 @@ public class Main extends Application {
         doctorsForApoointment.add("FamilyDoctor");
 
 
-
-        //pobranie dat dla wszytskich lekarzy i ich wyświtlenie
         try {
             Doctor.showDatesForAllDoctors(medicalFacility);
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        //sprawdzam czy działa pobeiranie danego lekarza o danej specjalizacji
 
         try {
             List<Doctor> doctors= Doctor.getDoctors(MedicalSpecialist.FamilyDoctor, medicalFacility);
@@ -358,10 +282,6 @@ public class Main extends Application {
         }
 
 
-
-
-
-        //sprawdzenie metoda zwracania wartości enum na podstawie strinha
         try {
             System.out.println(Doctor.getMedicalSpecialistFor("FamilyDoctor").toString());
             System.out.println(Doctor.getMedicalSpecialistFor("Internist").toString());
@@ -372,7 +292,6 @@ public class Main extends Application {
 
         //working Example = Patient
         try {
-           // Patient patientExample= new Patient("Weronika","Elwira",null, "Kowalska", "999", LocalDate.of(1990,2,10), "400344500", "elwira.kowalska@gmail.com");
             Patient patientExample= Patient.getPatientExample();
             Referral referralCardiologist= new Referral(LocalDate.of(2021,9,6),"Appointment", "999","Weronika","Kowalska",null,MedicalSpecialist.Cardiologist);
             Referral referralInternist= new Referral(LocalDate.of(2021,9,6),"Appointment", "999","Weronika","Kowalska",null,MedicalSpecialist.Internist);
@@ -402,32 +321,23 @@ public class Main extends Application {
             }
 
             List<RowForComboBox> rows= Doctor.getSegregatedAvailableDatesForDoctors(medicalFacility, MedicalSpecialist.FamilyDoctor);
-
-
             System.out.println(rows.size());
             for(RowForComboBox row : rows) {
                 System.out.println(row);
-
             }
 
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-      //  ExtendFil
-
 
         ExtendFile.writeExtends();
 
-
-
         try {
-
             System.out.println();
             ObjectLifeSpan.showExtent(Patient.class);
             List<ObjectLifeSpan> getExtentForClass= ObjectLifeSpan.getExtentForClass(Patient.class);
             System.out.println();
-
             for (ObjectLifeSpan o: getExtentForClass) {
                 AssociationConstraint associationConstraint= (AssociationConstraint) o ;
                 Map<String, LinkedHashMap<Object, ObjectAssociation>> con = associationConstraint.getConections();
@@ -441,7 +351,6 @@ public class Main extends Application {
 
 
         try {
-
             System.out.println();
             List<ObjectLifeSpan> getExtentForClass= ObjectLifeSpan.getExtentForClass(Doctor.class);
             System.out.println();
@@ -450,8 +359,6 @@ public class Main extends Application {
                 Map<String, LinkedHashMap<Object, ObjectAssociation>> con = associationConstraint.getConections();
                 System.out.println("association");
                 con.forEach((key, value) -> System.out.println(key + ":" + value + "  " ) );
-
-
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -459,7 +366,6 @@ public class Main extends Application {
 
         try {
             ObjectLifeSpan.showExtent(MedicalFacility.class);
-
             System.out.println();
             List<ObjectLifeSpan> getExtentForClass= ObjectLifeSpan.getExtentForClass(MedicalFacility.class);
             System.out.println();
@@ -468,10 +374,7 @@ public class Main extends Application {
                 Map<String, LinkedHashMap<Object, ObjectAssociation>> con = associationConstraint.getConections();
                 System.out.println("association");
                 con.forEach((key, value) -> System.out.println(key + ":" + value + "  " ) );
-
             }
-
-
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -481,30 +384,24 @@ public class Main extends Application {
 
         try {
             ObjectLifeSpan.showExtent(MedicalFacility.class);
-
-                System.out.println();
-                List<ObjectLifeSpan> getExtentForClass= ObjectLifeSpan.getExtentForClass(MedicalFacility.class);
-                System.out.println();
-                for (ObjectLifeSpan o: getExtentForClass) {
-                    AssociationConstraint associationConstraint= (AssociationConstraint) o ;
-                    Map<String, LinkedHashMap<Object, ObjectAssociation>> con = associationConstraint.getConections();
-                    System.out.println("association");
-                    con.forEach((key, value) -> System.out.println(key + ":" + value + "  " ) );
-
+            System.out.println();
+            List<ObjectLifeSpan> getExtentForClass= ObjectLifeSpan.getExtentForClass(MedicalFacility.class);
+            System.out.println();
+            for (ObjectLifeSpan o: getExtentForClass) {
+                 AssociationConstraint associationConstraint= (AssociationConstraint) o ;
+                 Map<String, LinkedHashMap<Object, ObjectAssociation>> con = associationConstraint.getConections();
+                 System.out.println("association");
+                 con.forEach((key, value) -> System.out.println(key + ":" + value + "  " ) );
                 }
-
-
         } catch (Exception e) {
             e.printStackTrace();
         }
 
         try {
-
             System.out.println();
             ObjectLifeSpan.showExtent(Referral.class);
             List<ObjectLifeSpan> getExtentForClass= ObjectLifeSpan.getExtentForClass(Referral.class);
             System.out.println();
-
             for (ObjectLifeSpan o: getExtentForClass) {
                 AssociationConstraint associationConstraint= (AssociationConstraint) o ;
                 Map<String, LinkedHashMap<Object, ObjectAssociation>> con = associationConstraint.getConections();
@@ -517,17 +414,11 @@ public class Main extends Application {
 
 
 
-
-
-
-
         try {
             ObjectLifeSpan.showExtent(Doctor.class);
-
         } catch (Exception e) {
             e.printStackTrace();
         }
-        //
 
 
 

@@ -72,6 +72,8 @@ public class LoginController implements Initializable{
         File userFile= new File(".idea/Images/UserIconLogin.png");
         Image userImage= new Image(userFile.toURI().toString());
         userImageView.setImage(userImage);
+        PassowrdField.setText("PasswordExample");
+        adresEmailTextField.setText("patient_example@gmail.com");
     }
 
 

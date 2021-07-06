@@ -12,7 +12,7 @@
 
 <BorderPane fx:id="backgroundPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="605.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.LoginController">
    <right>
-      <AnchorPane prefHeight="550.0" prefWidth="422.0" style="-fx-background-color: #def4f1;" BorderPane.alignment="CENTER">
+      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="606.0" prefWidth="422.0" style="-fx-background-color: #def4f1;" BorderPane.alignment="CENTER">
          <children>
             <ImageView fx:id="userImageView" fitHeight="40.0" fitWidth="52.0" layoutX="8.0" layoutY="255.0" pickOnBounds="true" preserveRatio="true" />
             <ImageView fx:id="lockImageView" fitHeight="40.0" fitWidth="52.0" layoutX="14.0" layoutY="362.0" pickOnBounds="true" preserveRatio="true">
@@ -53,7 +53,7 @@
    <center>
       <AnchorPane prefHeight="550.0" prefWidth="314.0" BorderPane.alignment="CENTER">
          <children>
-            <ImageView fx:id="background" fitHeight="603.0" fitWidth="425.0" layoutX="-174.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="1.3999999999999773" AnchorPane.leftAnchor="-174.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="2.0">
+            <ImageView fx:id="background" fitHeight="603.0" fitWidth="425.0" layoutX="-174.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.6000000000000227" AnchorPane.leftAnchor="-174.0" AnchorPane.rightAnchor="0.8000000000000114" AnchorPane.topAnchor="2.0">
                <image>
                   <Image url="@../../.idea/Images/Background_Login.jpg" />
                </image>
