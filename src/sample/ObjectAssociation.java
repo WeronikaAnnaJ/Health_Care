@@ -3,7 +3,7 @@ package sample;
 import java.io.Serializable;
 import java.util.*;
 
-public abstract class ObjectAssociation extends ObjectLifeSpan implements Serializable { //klasa abstrakcyjna, dziedzicząca po klasie abstrakcyjnej ObjectLifeSpan, implementująca Serializable
+public  class ObjectAssociation extends ObjectLifeSpan implements Serializable { //klasa abstrakcyjna, dziedzicząca po klasie abstrakcyjnej ObjectLifeSpan, implementująca Serializable
 
 
     /** Kolekcja mapująca, kluczem jest rola asocjacji, a wartością mapa, która przechowuje jako klucz kwalifikator, a jako watość referencję do obiektu docelowego w sposób uporządkowany*/
@@ -21,15 +21,15 @@ public abstract class ObjectAssociation extends ObjectLifeSpan implements Serial
 
 
     public ObjectAssociation() { //kontruktor
-
         super(); //wywołanie konstruktora z nadklasy
+        System.out.println("ObjectAssociation");
+
     }
 
 
-
-
-
-
+    public Map<String, LinkedHashMap<Object, ObjectAssociation>> getConections() {
+        return Conections;
+    }
 
     /** Metoda sprawdzająca czy istnieje powiązanie obiektu do podanego obiektu w ramach danej roli*/
     public boolean isConnetion(String roleName, ObjectAssociation targetObject){
@@ -131,6 +131,7 @@ public abstract class ObjectAssociation extends ObjectLifeSpan implements Serial
 
             targetObject.addConnection(reverseRoleName, roleName, this, this, counter --);//tworzenie połączenia zwrotnego
         }
+
     }
 
 

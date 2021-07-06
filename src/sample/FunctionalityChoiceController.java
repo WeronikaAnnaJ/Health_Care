@@ -13,8 +13,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import  javafx.event.ActionEvent;
 
@@ -42,12 +41,33 @@ private ImageView graphicImageView;
 
 
 
+    @FXML
+    private Pane balckgroundPane;
+    @FXML
+    private Pane backgrouncPaneMain;
 
     @Override
    public void initialize(URL url, ResourceBundle resourceBundle){
-         File graphicFile= new File(".idea/Images/GRAPHIC.jpg");
+         File graphicFile= new File(".idea/Images/NoteFunctionalityChoice.png");
          Image image= new Image(graphicFile.toURI().toString());
          graphicImageView.setImage(image);
+
+        File imageFile= new File(".idea/Images/medical_bacground_1.jpg");
+        Image imageImage= new Image(imageFile.toURI().toString());
+        /// background.setImage(imageImage);
+
+        BackgroundImage backgroundimage = new BackgroundImage(imageImage,
+                BackgroundRepeat.NO_REPEAT,
+                BackgroundRepeat.NO_REPEAT,
+                BackgroundPosition.DEFAULT,
+                BackgroundSize.DEFAULT);
+
+        // create Background
+        Background background = new Background(backgroundimage);
+
+        // set background
+  //      balckgroundPane.setBackground(background);
+        backgrouncPaneMain.setBackground(background);
 
      }
 

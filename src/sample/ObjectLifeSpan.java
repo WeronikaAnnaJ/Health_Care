@@ -21,6 +21,7 @@ public abstract class ObjectLifeSpan implements Serializable {
 
     public ObjectLifeSpan() {
 
+        System.out.println("Object life span");
         List extent = null;
         Class theClass = this.getClass();
 
@@ -34,6 +35,8 @@ public abstract class ObjectLifeSpan implements Serializable {
         extent.add(this);
 
     }
+
+
 
 
 
@@ -56,6 +59,22 @@ public abstract class ObjectLifeSpan implements Serializable {
 
     }
 
+
+
+
+    public static void addObject(ObjectAssociation object){
+        List extent = null;
+        Class theClass = ObjectAssociation.class;
+        if (allExtents.containsKey(theClass)) {
+            extent = allExtents.get(theClass);
+
+        }else{
+            extent = new ArrayList();
+            allExtents.put(theClass, extent);
+        }
+        extent.add(object);
+        System.out.println("-----------------------------------");
+    }
 
 
 
@@ -193,13 +212,6 @@ public abstract class ObjectLifeSpan implements Serializable {
             System.out.println(obj);
         }
     }
-
-
-
-
-
-
-
 
 
 }

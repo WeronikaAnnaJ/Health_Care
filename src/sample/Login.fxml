@@ -4,28 +4,61 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.effect.ColorAdjust?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="backgroundPane" prefHeight="519.0" prefWidth="553.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.LoginController">
-   <children>
-      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="-1.0" layoutY="56.0" prefHeight="94.0" prefWidth="579.0" text="LOGOWANIE">
-         <font>
-            <Font size="27.0" />
-         </font>
-      </Label>
-      <Label layoutX="168.0" layoutY="180.0" prefHeight="26.0" prefWidth="85.0" text="Adres e-mail" />
-      <Label layoutX="175.0" layoutY="289.0" prefHeight="18.0" prefWidth="58.0" text="Hasło" />
-      <PasswordField fx:id="PassowrdField" layoutX="157.0" layoutY="326.0" prefHeight="46.0" prefWidth="263.0" promptText="PasswordExample" />
-      <TextField fx:id="adresEmailTextField" layoutX="157.0" layoutY="219.0" prefHeight="46.0" prefWidth="263.0" promptText="PatientExample" />
-      <Button fx:id="LogInButton" layoutX="240.0" layoutY="436.0" mnemonicParsing="false" onAction="#setAppointmentButtonAction" prefHeight="38.0" prefWidth="122.0" text="Zaloguj się" />
-      <Button fx:id="CancelButton" layoutX="399.0" layoutY="436.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="122.0" text="Anuluj" />
-      <ImageView fx:id="userImageView" fitHeight="46.0" fitWidth="51.0" layoutX="54.0" layoutY="219.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="lockImageView" fitHeight="46.0" fitWidth="51.0" layoutX="54.0" layoutY="326.0" pickOnBounds="true" preserveRatio="true" />
-   </children>
-   <effect>
-      <ColorAdjust brightness="0.04" hue="0.03" saturation="-0.22" />
-   </effect>
-</AnchorPane>
+<BorderPane fx:id="backgroundPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="605.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.LoginController">
+   <right>
+      <AnchorPane prefHeight="550.0" prefWidth="422.0" style="-fx-background-color: #def4f1;" BorderPane.alignment="CENTER">
+         <children>
+            <ImageView fx:id="userImageView" fitHeight="40.0" fitWidth="52.0" layoutX="8.0" layoutY="255.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="lockImageView" fitHeight="40.0" fitWidth="52.0" layoutX="14.0" layoutY="362.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../.idea/Images/PasswordIconLogin.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="74.0" layoutY="106.0" prefHeight="68.0" prefWidth="236.0" text="LOGOWANIE" textFill="#31af91">
+               <font>
+                  <Font size="40.0" />
+               </font>
+            </Label>
+            <TextField fx:id="adresEmailTextField" layoutX="75.0" layoutY="258.0" prefHeight="34.0" prefWidth="271.0" promptText="twój adres e-mail" />
+            <PasswordField fx:id="PassowrdField" layoutX="76.0" layoutY="365.0" prefHeight="33.0" prefWidth="270.0" promptText="twoje hasło" />
+            <Label layoutX="76.0" layoutY="231.0" text="adres e-mail" textFill="#31af91">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label layoutX="76.0" layoutY="332.0" text="hasło" textFill="#31af91">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Button fx:id="LogInButton" defaultButton="true" layoutX="146.0" layoutY="491.0" mnemonicParsing="false" onAction="#setLogInButtonAction" prefHeight="36.0" prefWidth="112.0" style="-fx-background-color: #31af91;" text="Zaloguj się" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Button>
+            <Button fx:id="CancelButton" cancelButton="true" layoutX="279.0" layoutY="491.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="112.0" style="-fx-background-color: #31af91;" text="Anuluj" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Button>
+         </children>
+      </AnchorPane>
+   </right>
+   <center>
+      <AnchorPane prefHeight="550.0" prefWidth="314.0" BorderPane.alignment="CENTER">
+         <children>
+            <ImageView fx:id="background" fitHeight="603.0" fitWidth="425.0" layoutX="-174.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="1.3999999999999773" AnchorPane.leftAnchor="-174.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="2.0">
+               <image>
+                  <Image url="@../../.idea/Images/Background_Login.jpg" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+   </center>
+</BorderPane>

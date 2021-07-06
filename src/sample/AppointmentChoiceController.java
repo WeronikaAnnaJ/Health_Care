@@ -13,9 +13,12 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
+import javafx.scene.image.Image;
+import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
 import java.awt.*;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDateTime;
@@ -26,11 +29,12 @@ import java.util.List;
 public class AppointmentChoiceController implements Initializable {
 
 
-Patient patientExample = Patient.getPatientExample();
-MedicalFacility medicalFacilityExample= MedicalFacility.getMedicalFacilityExample();
+ Patient patientExample = Patient.getPatientExample();
+ MedicalFacility medicalFacilityExample= MedicalFacility.getMedicalFacilityExample();
 
-List<RowForComboBox> rows;
-List<String> rowsString;
+ List<RowForComboBox> rows;
+ List<String> rowsString;
+
 
  @FXML
  private Label InformationSpecializationLabel;
@@ -47,18 +51,13 @@ List<String> rowsString;
  @FXML
  private Button cancelButton;
 
-
  @FXML
  private ComboBox<String> specializationComboBox;
 
- ObservableList<String> options =
-         FXCollections.observableArrayList(
-                 "Option 1",
-                 "Option 2",
-                 "Option 3"
-         );
+ @FXML
+ private  Pane backgroundPane;
 
-;
+
 
 private Map<String,MedicalSpecialist > specializationDictionary = Doctor.getSpecializationsDicrionary();
 
@@ -70,97 +69,107 @@ public void specializationChoice(){
 
   if(medicalSpecialist==MedicalSpecialist.FamilyDoctor){
 
-     try {
-      List<RowForComboBox> rowsForComboBox = Doctor.getSegregatedAvailableDatesForDoctors(medicalFacilityExample,medicalSpecialist);
-      rows=rowsForComboBox;
-      if(rowsForComboBox.isEmpty()){
-       AppointmentDateComboBox.getItems().clear();
-       AppointmentDateComboBox.getItems().add("No available appointments");
+        try {
+         List<RowForComboBox> rowsForComboBox = Doctor.getSegregatedAvailableDatesForDoctors(medicalFacilityExample,medicalSpecialist);
+         rows=rowsForComboBox;
+             if(rowsForComboBox.isEmpty()){
+              AppointmentDateComboBox.getItems().clear();
+              AppointmentDateComboBox.getItems().add("No available appointments");
 
-      }else {
-       List<String> rowsStringForComboBox = new ArrayList<>();
-       rowsString=rowsStringForComboBox;
-
-
-       for (RowForComboBox row : rowsForComboBox) {
-        String doctorName = row.getDoctor().getName() + " " + row.getDoctor().getLastName();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd   HH:mm");
-        String dateAndTime = row.getLocalDateTime().format(formatter);
-        String stringRow = dateAndTime + "     " + doctorName;
-        rowsStringForComboBox.add(stringRow);
-       }
+         }else {
+          List<String> rowsStringForComboBox = new ArrayList<>();
+          rowsString=rowsStringForComboBox;
 
 
-       for (String s : rowsStringForComboBox
-       ) {
-        System.out.println(s);
-       }
+         for (RowForComboBox row : rowsForComboBox) {
+          String doctorName = row.getDoctor().getName() + " " + row.getDoctor().getLastName();
+          DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd   HH:mm");
+          String dateAndTime = row.getLocalDateTime().format(formatter);
+          String stringRow = dateAndTime + "     " + doctorName;
+          rowsStringForComboBox.add(stringRow);
+         }
 
-       ObservableList<String> list = FXCollections.observableArrayList(rowsStringForComboBox);
-       AppointmentDateComboBox.getItems().clear();
-       AppointmentDateComboBox.setItems(list);
+
+          for (String s : rowsStringForComboBox
+          ) {
+           System.out.println(s);
+          }
+
+          ObservableList<String> list = FXCollections.observableArrayList(rowsStringForComboBox);
+          AppointmentDateComboBox.getItems().clear();
+          AppointmentDateComboBox.setItems(list);
       }
      } catch (Exception e) {
-      e.printStackTrace();
-      //what if there is no data for doctors or appointmens
-      AppointmentDateComboBox.getItems().clear();
-      AppointmentDateComboBox.getItems().add("No available dates");
+         e.printStackTrace();
+         //what if there is no data for doctors or appointmens
+         AppointmentDateComboBox.getItems().clear();
+         AppointmentDateComboBox.getItems().add("No available dates");
 
    }
 
   }else {
 
 
-   List<Referral> referrals = null;
-   try {
-    referrals = Referral.getActualReferralForPacient(patientExample, medicalSpecialist);
-    Referral referral = Referral.getMostUrgentReferral(referrals);
-    System.out.println("reffreal");
-
-
+    List<Referral> referrals = null;
     try {
-     List<RowForComboBox> rowsForComboBox = Doctor.getSegregatedAvailableDatesForDoctors(medicalFacilityExample, medicalSpecialist);
-     rows=rowsForComboBox;
-
-     if (rowsForComboBox.isEmpty()) {
-      AppointmentDateComboBox.getItems().clear();
-      AppointmentDateComboBox.getItems().add("No available appointments");
-
-     } else {
-      List<String> rowsStringForComboBox = new ArrayList<>();
-      rowsString=rowsStringForComboBox;
-      for (RowForComboBox row : rowsForComboBox) {
-       String doctorName = row.getDoctor().getName() + " " + row.getDoctor().getLastName();
-       DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-       String dateAndTime = row.getLocalDateTime().format(formatter);
-       String stringRow = dateAndTime + " " + doctorName;
-       rowsStringForComboBox.add(stringRow);
-      }
+     referrals = Referral.getActualReferralForPacient(patientExample, medicalSpecialist);
+     Referral referral = Referral.getMostUrgentReferral(referrals);
+     System.out.println("reffreal");
+     /////
 
 
-      for (String s : rowsStringForComboBox
-      ) {
-       System.out.println(s);
-      }
 
-      ObservableList<String> list = FXCollections.observableArrayList(rowsStringForComboBox);
-      AppointmentDateComboBox.getItems().clear();
-      AppointmentDateComboBox.setItems(list);
+
+
+
+
+         try {
+          List<RowForComboBox> rowsForComboBox = Doctor.getSegregatedAvailableDatesForDoctors(medicalFacilityExample, medicalSpecialist);
+          rows=rowsForComboBox;
+
+             if (rowsForComboBox.isEmpty()) {
+              AppointmentDateComboBox.getItems().clear();
+              AppointmentDateComboBox.getItems().add("No available appointments");
+
+          } else {
+               List<String> rowsStringForComboBox = new ArrayList<>();
+               rowsString=rowsStringForComboBox;
+
+               for (RowForComboBox row : rowsForComboBox) {
+                  String doctorName = row.getDoctor().getName() + " " + row.getDoctor().getLastName();
+                  DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+                  String dateAndTime = row.getLocalDateTime().format(formatter);
+                  String stringRow = dateAndTime + " " + doctorName;
+                  rowsStringForComboBox.add(stringRow);
+                  }
+
+
+                 for (String s : rowsStringForComboBox) {
+                  System.out.println(s);
+                 }
+
+                ObservableList<String> list = FXCollections.observableArrayList(rowsStringForComboBox);
+                AppointmentDateComboBox.getItems().clear();
+                AppointmentDateComboBox.setItems(list);
+          }
+
+
+     } catch (Exception e) {
+         e.printStackTrace();
+        //what if there is no data for doctors or appointmens
+        AppointmentDateComboBox.getItems().clear();
+        AppointmentDateComboBox.getItems().add("No available dates");
      }
-    } catch (Exception e) {
-     e.printStackTrace();
-     //what if there is no data for doctors or appointmens
-     AppointmentDateComboBox.getItems().clear();
-     AppointmentDateComboBox.getItems().add("No available dates");
-
-    }
 
 
    } catch (Exception e) {
     System.out.println("no refferal");
     AppointmentDateComboBox.getItems().clear();
     AppointmentDateComboBox.getItems().add("Not available");
+
    }
+
+
   }
   //wybierz najnowszą
 
@@ -178,44 +187,41 @@ public void specializationChoice(){
   System.out.println("Zatwierdz");
 
   try {
-   RowForComboBox rowForComboBox = null;
-   for (int i = 0; i < rowsString.size(); i++) {
-    if (rowsString.get(i) == AppointmentDateComboBox.getValue()) {
-     rowForComboBox = rows.get(i);
-    }
-   }
+     RowForComboBox rowForComboBox = null;
+     for (int i = 0; i < rowsString.size(); i++) {
+       if (rowsString.get(i) == AppointmentDateComboBox.getValue()) {
+         rowForComboBox = rows.get(i);
+       }
+     }
 
+     System.out.println(rowForComboBox);
+     //set appointmemt term not available anymore
+     rowForComboBox.getDoctor().changeDateAvailability(rowForComboBox.getLocalDateTime(), false);
+     //utworz wizyte i polacz z pacjentem
 
-   System.out.println(rowForComboBox);
-   //set appointmemt term not available anymore
-   rowForComboBox.getDoctor().changeDateAvailability(rowForComboBox.getLocalDateTime(), false);
-   //utworz wizyte i polacz z pacjentem
+     Appointment appointment= new Appointment(rowForComboBox.getLocalDateTime(), patientExample);
+     Appointment.getAppointments(patientExample);
 
-   Appointment appointment= new Appointment(rowForComboBox.getLocalDateTime(), patientExample);
-   Appointment.getAppointments(patientExample);
+     String doctorName = rowForComboBox.getDoctor().getName() + " " + rowForComboBox.getDoctor().getLastName();
+     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+     String dateAndTime = rowForComboBox.getLocalDateTime().format(formatter);
 
-   String doctorName = rowForComboBox.getDoctor().getName() + " " + rowForComboBox.getDoctor().getLastName();
-   DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-   String dateAndTime = rowForComboBox.getLocalDateTime().format(formatter);
+     Alert alert = new Alert(Alert.AlertType.INFORMATION);
+     alert.setTitle("Potwierdzenie wizyty");
+     alert.setHeaderText("Wybrana wizyta");
+     alert.setContentText("Lekarz: " + dateAndTime + "\nLekarz: " + doctorName);
 
-   Alert alert = new Alert(Alert.AlertType.INFORMATION);
-   alert.setTitle("Potwierdzenie wizyty");
-   alert.setHeaderText("Wybrana wizyta");
-   alert.setContentText("Lekarz: " + dateAndTime + "\nLekarz: " + doctorName);
-
-   Optional<ButtonType> result = alert.showAndWait();
-  if (result.get() == ButtonType.OK){
-   Parent functionalityChoiceParent= FXMLLoader.load(getClass().getResource("AppointmentChoice.fxml"));
-   Scene funtionalityChoiceScene= new Scene(functionalityChoiceParent);
-   Stage stage = (Stage) (((Node)event.getSource()).getScene().getWindow());
-   stage.hide();
-   stage.setScene(funtionalityChoiceScene);
-   stage.show();
-
-
-  } else {
+     Optional<ButtonType> result = alert.showAndWait();
+    if (result.get() == ButtonType.OK){
+       Parent functionalityChoiceParent= FXMLLoader.load(getClass().getResource("AppointmentChoice.fxml"));
+       Scene funtionalityChoiceScene= new Scene(functionalityChoiceParent);
+       Stage stage = (Stage) (((Node)event.getSource()).getScene().getWindow());
+       stage.hide();
+       stage.setScene(funtionalityChoiceScene);
+       stage.show();
+    } else {
    // ... user chose CANCEL or closed the dialog
-  }
+    }
 
    //show
   }catch (Exception exception){
@@ -252,17 +258,26 @@ public void specializationChoice(){
   AppointmentDateComboBox.getItems().add("Brak danych");
 
 
+     File imageFile= new File(".idea/Images/Background_Login.jpg");
+     javafx.scene.image.Image imageImage= new Image(imageFile.toURI().toString());
+     /// background.setImage(imageImage);
+
+     BackgroundImage backgroundimage = new BackgroundImage(imageImage,
+             BackgroundRepeat.NO_REPEAT,
+             BackgroundRepeat.NO_REPEAT,
+             BackgroundPosition.DEFAULT,
+             BackgroundSize.DEFAULT);
+
+     // create Background
+     Background background = new Background(backgroundimage);
+
+     // set background
+     //      balckgroundPane.setBackground(background);
+     backgroundPane.setBackground(background);
+
+
 
  }
-
- //sprawdzenie czy wybrana specjaliza jest rowna rodzinny jak tak to juz szukasz terminow
- //jeśli nie to sprawdź dla danego pacjenta skierowania
- //zobacz czy skierowanie jest dla niego do danego specjalisty
- //zobacz  czy skierowanie jest ważne
- //jeśli nie wyświetl infromacje
- //jeśli tak wyszukaj terminy
-
-
 
 
 

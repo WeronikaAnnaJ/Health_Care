@@ -13,7 +13,9 @@ public class AssociationConstraint extends ObjectAssociation{//klasa Association
 
     AssociationConstraint(){//konstruktor
 
+
         super();//wywołanie konstruktora z andklasy
+        System.out.println("Association Constraint");
     }
 
 

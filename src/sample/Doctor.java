@@ -25,7 +25,7 @@ public class Doctor extends Medic { //klasa Lekarz dziedzicząca po klasie Praco
     private static Map<String, Doctor> allPWZ = new LinkedHashMap<>();
 
     private Map<LocalDateTime, Boolean> availableDates = new TreeMap<LocalDateTime, Boolean>();
-    
+
 
 
     Doctor(String name, String middleName, String maidenName, String lastName, String pesel, LocalDate birthDate, String phoneNumber, String emailAddress, String PWZ, MedicalSpecialist specialization) throws Exception {
@@ -225,8 +225,42 @@ public class Doctor extends Medic { //klasa Lekarz dziedzicząca po klasie Praco
         List<Doctor> doctors = new ArrayList<>();
 
         try {
-            ObjectAssociation[] objects = medicalFacility.getConnections("employ");
-            for (Object object : objects) {
+            Map<String, LinkedHashMap<Object, ObjectAssociation>> con = medicalFacility.getConections();
+            List<Doctor> doctorsList= new ArrayList<>();
+          //  LinkedHashMap<Object, ObjectAssociation> objects = con.get("employ");
+           List<Doctor>  list =  new ArrayList<>();
+
+            try {
+                System.out.println("METOD");
+                List<ObjectLifeSpan> getExtentForClass= ObjectLifeSpan.getExtentForClass(MedicalFacility.class);
+                System.out.println();
+                for (ObjectLifeSpan o: getExtentForClass) {
+                    AssociationConstraint associationConstraint= (AssociationConstraint) o ;
+                    Map<String, LinkedHashMap<Object, ObjectAssociation>> con2 = associationConstraint.getConections();
+                    System.out.println("association");
+                    con2.forEach((key, value) ->{
+                        System.out.println(key + ":" + value + "  " );
+                        System.out.println("Key");
+                        System.out.println(value);
+                        LinkedHashMap<Object, ObjectAssociation> linkedHashMap =value;
+                        System.out.println("List");
+                        System.out.println(linkedHashMap);
+                        System.out.println("IN LINKED HASH MAP");
+                        linkedHashMap.forEach((key1, value1) ->{
+                            System.out.println(key1 + ":" + value1 + "  " );
+                            list.add((Doctor) key1);
+                            System.out.println("added to list" + (Doctor) key1);
+
+                    } );
+
+
+
+                });}
+            }catch (Exception e){
+                System.out.println("BŁAD W POBIERANIU");
+            }
+
+            for (Object object : list) {
                 if (object instanceof Doctor) {
                     doctors.add((Doctor) object);
                 }
@@ -234,7 +268,8 @@ public class Doctor extends Medic { //klasa Lekarz dziedzicząca po klasie Praco
             }
         } catch (Exception e) {
             e.printStackTrace();
-        }
+        }           // }
+
         return doctors;
     }
 

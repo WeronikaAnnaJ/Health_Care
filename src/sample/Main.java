@@ -14,6 +14,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -25,7 +26,7 @@ public class Main extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("Login.fxml"));
 
         primaryStage.initStyle(StageStyle.DECORATED);
-        Scene scene=new Scene(root, 600, 550);
+        Scene scene=new Scene(root, 650, 605);
         primaryStage.setScene(scene);
 
         primaryStage.show();
@@ -36,8 +37,7 @@ public class Main extends Application {
 
     public static void main(String[] args) {
 
-
-        try {
+   try {
             Employee employee = new Employee("Karol", "Wojciech", null, "Karolak", "1", LocalDate.of(1990, 12, 12), "111-111-111", "karol.wojciech.karolak@wp.pl");
             employee.setEmploymentDate(LocalDate.of(2020,6,1));
             System.out.println(employee);
@@ -284,6 +284,8 @@ public class Main extends Application {
 
             doctor3.showDates();
 */
+        /////////////////////////
+
         }catch(Exception e){
             e.printStackTrace();
         }
@@ -412,7 +414,139 @@ public class Main extends Application {
             e.printStackTrace();
         }
 
+      //  ExtendFil
 
+
+        ExtendFile.writeExtends();
+
+
+
+        try {
+
+            System.out.println();
+            ObjectLifeSpan.showExtent(Patient.class);
+            List<ObjectLifeSpan> getExtentForClass= ObjectLifeSpan.getExtentForClass(Patient.class);
+            System.out.println();
+
+            for (ObjectLifeSpan o: getExtentForClass) {
+                AssociationConstraint associationConstraint= (AssociationConstraint) o ;
+                Map<String, LinkedHashMap<Object, ObjectAssociation>> con = associationConstraint.getConections();
+                System.out.println("association");
+                con.forEach((key, value) -> System.out.println(key + ":" + value));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+
+        try {
+
+            System.out.println();
+            List<ObjectLifeSpan> getExtentForClass= ObjectLifeSpan.getExtentForClass(Doctor.class);
+            System.out.println();
+            for (ObjectLifeSpan o: getExtentForClass) {
+                AssociationConstraint associationConstraint= (AssociationConstraint) o ;
+                Map<String, LinkedHashMap<Object, ObjectAssociation>> con = associationConstraint.getConections();
+                System.out.println("association");
+                con.forEach((key, value) -> System.out.println(key + ":" + value + "  " ) );
+
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        try {
+            ObjectLifeSpan.showExtent(MedicalFacility.class);
+
+            System.out.println();
+            List<ObjectLifeSpan> getExtentForClass= ObjectLifeSpan.getExtentForClass(MedicalFacility.class);
+            System.out.println();
+            for (ObjectLifeSpan o: getExtentForClass) {
+                AssociationConstraint associationConstraint= (AssociationConstraint) o ;
+                Map<String, LinkedHashMap<Object, ObjectAssociation>> con = associationConstraint.getConections();
+                System.out.println("association");
+                con.forEach((key, value) -> System.out.println(key + ":" + value + "  " ) );
+
+            }
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         launch(args);
+
+
+
+        try {
+            ObjectLifeSpan.showExtent(MedicalFacility.class);
+
+                System.out.println();
+                List<ObjectLifeSpan> getExtentForClass= ObjectLifeSpan.getExtentForClass(MedicalFacility.class);
+                System.out.println();
+                for (ObjectLifeSpan o: getExtentForClass) {
+                    AssociationConstraint associationConstraint= (AssociationConstraint) o ;
+                    Map<String, LinkedHashMap<Object, ObjectAssociation>> con = associationConstraint.getConections();
+                    System.out.println("association");
+                    con.forEach((key, value) -> System.out.println(key + ":" + value + "  " ) );
+
+                }
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        try {
+
+            System.out.println();
+            ObjectLifeSpan.showExtent(Referral.class);
+            List<ObjectLifeSpan> getExtentForClass= ObjectLifeSpan.getExtentForClass(Referral.class);
+            System.out.println();
+
+            for (ObjectLifeSpan o: getExtentForClass) {
+                AssociationConstraint associationConstraint= (AssociationConstraint) o ;
+                Map<String, LinkedHashMap<Object, ObjectAssociation>> con = associationConstraint.getConections();
+                System.out.println("association");
+                con.forEach((key, value) -> System.out.println(key + ":" + value));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+
+
+
+
+
+        try {
+            ObjectLifeSpan.showExtent(Doctor.class);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        //
+
+
+
+        try {
+            ObjectLifeSpan.showExtent(EmploymentContract.class);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+        try {
+            ObjectLifeSpan.showExtent(RowForComboBox.class);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+
+
+
     }
 }

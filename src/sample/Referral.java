@@ -1,9 +1,7 @@
 package sample;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Stack;
+import java.util.*;
 
 public class Referral extends AssociationConstraint{
     private LocalDate dateOfIssuing;
@@ -47,26 +45,82 @@ public class Referral extends AssociationConstraint{
         return PESEL;
     }
 
+
+
+
+
+
+
+
     public static List<Referral> getActualReferralForPacient(Patient patient, MedicalSpecialist medicalSpecialist) throws Exception {
-        ObjectAssociation[] referrals= patient.getConnections("referral"); //getfirst actual?
-        if(referrals.length==0){
-            throw new Exception("There are no referrals for patient");
-        }
-        List<Referral> actualReferral= new ArrayList<>();
-        for ( ObjectAssociation object:referrals) {
-            Referral referral= (Referral) object;
-            if(referral.getMedicalSpecialist()==medicalSpecialist){
-                if(referral.isActual()== true){
-                    actualReferral.add(referral);
-                }
-            }
-        }
-        if(actualReferral.isEmpty()){
-            throw new Exception("There are no actual referrals for patient");
+        List<Referral>  list =  new ArrayList<>();
+        try {
+
+            System.out.println();
+            ObjectLifeSpan.showExtent(Patient.class);
+            List<ObjectLifeSpan> getExtentForClass= ObjectLifeSpan.getExtentForClass(Patient.class);
+
+            System.out.println();
+
+            for (ObjectLifeSpan o: getExtentForClass) {
+                AssociationConstraint associationConstraint= (AssociationConstraint) o ;
+                Map<String, LinkedHashMap<Object, ObjectAssociation>> con = associationConstraint.getConections();
+                System.out.println("association");
+
+                con.forEach((key, value) ->{
+                    System.out.println(key + ":" + value + "  " );
+                    System.out.println("Key");
+                    System.out.println(value);
+                    if(key.equals("referral")){
+                        LinkedHashMap<Object, ObjectAssociation> linkedHashMap = value;
+                        System.out.println("List");
+                        System.out.println(linkedHashMap);
+                        System.out.println("IN LINKED HASH MAP");
+                        linkedHashMap.forEach((key1, value1) -> {
+                            System.out.println(key1 + ":" + value1 + "  ");
+                            Referral referral= ((Referral) key1);
+                            System.out.println("----------------------------------------");
+                            System.out.println("referral.getPESEL() "+referral.getPESEL() + "patient.getPesel()" +patient.getPesel() );
+                            if((referral.getPESEL().equals(patient.getPesel())) && (referral.getMedicalSpecialist()== medicalSpecialist) && (referral.getExpiryDate().isAfter(LocalDate.now()))){{
+                                list.add(referral);
+                                System.out.println("added to list" + (Referral) key1);
+                            }}
+                        });
+                   }}); }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
-        return actualReferral;
+        System.out.println("RETURN LIST " +  list.size());
+        for (Referral r:list) {
+            System.out.println(">>>>>>>>>>>>>>>>>>>>>>"+r);
+        }
+        System.out.println("RETURN LIST " +  list.size());
+        System.out.println("RETURN LIST " +  list.size());
+        System.out.println("RETURN LIST " +  list.size());
+        System.out.println("RETURN LIST " +  list.size());
+
+
+
+        return list;
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     //get newest refferal from refferals
     public static Referral getMostUrgentReferral(List<Referral> list){
         Referral mostUrgentReferral = list.get(0);
@@ -78,6 +132,7 @@ public class Referral extends AssociationConstraint{
             }
         }
         return mostUrgentReferral;
+
     }
 
 

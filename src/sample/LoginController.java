@@ -12,7 +12,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
 import java.io.File;
@@ -43,28 +43,44 @@ public class LoginController implements Initializable{
     private ImageView lockImageView;
 
     @FXML
-    private AnchorPane backgroundPane;
+    private Pane backgroundPane;
 
     private Stage stage;
     private Scene scene;
     private Parent root;
 
 
-
+    @FXML
+    private ImageView background;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle){
 
-        File lockFile= new File(".idea/Images/Lock.Icon.png");
+
+        File imageFile= new File(".idea/Images/Background_Login.jpg");
+        Image imageImage= new Image(imageFile.toURI().toString());
+        background.setImage(imageImage);
+
+        BackgroundImage backgroundimage = new BackgroundImage(imageImage,
+                BackgroundRepeat.NO_REPEAT,
+                BackgroundRepeat.NO_REPEAT,
+                BackgroundPosition.DEFAULT,
+                BackgroundSize.DEFAULT);
+
+        // create Background
+        Background background = new Background(backgroundimage);
+
+        // set background
+        backgroundPane.setBackground(background);
+
+        File lockFile= new File(".idea/Images/PasswordIconLogin.png");
         Image lockImage= new Image(lockFile.toURI().toString());
         lockImageView.setImage(lockImage);
 
-
-        File userFile= new File(".idea/Images/Login.Icon.png");
+        File userFile= new File(".idea/Images/UserIconLogin.png");
         Image userImage= new Image(userFile.toURI().toString());
         userImageView.setImage(userImage);
     }
-
 
 
     public void  setAppointmentButtonAction(ActionEvent event ) throws IOException {
@@ -80,9 +96,16 @@ public class LoginController implements Initializable{
     }
 
 
+    @FXML
+    void setLogInButtonAction(ActionEvent event) throws IOException {
+        System.out.println("Zaloguj się");
+        Parent functionalityChoiceParent= FXMLLoader.load(getClass().getResource("sample.fxml"));
+        Scene funtionalityChoiceScene= new Scene(functionalityChoiceParent);
+        Stage stage = (Stage) (((Node)event.getSource()).getScene().getWindow());
+        stage.hide();
+        stage.setScene(funtionalityChoiceScene);
+        stage.show();
 
-
-
-
+    }
 
 }
