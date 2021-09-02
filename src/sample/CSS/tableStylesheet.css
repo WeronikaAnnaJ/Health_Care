@@ -1,0 +1,21 @@
+.root {
+    -fx-background-color: #e1f1ee;
+}
+
+
+.table-view .column-header-background .label {
+    -fx-background-color: #31af91;
+    -fx-text-fill: white;
+}
+
+.table-view .column-header {
+    -fx-background-color: #e1f1ee;
+}
+
+
+.table-view .table-cell {
+    -fx-border-width: 5px;
+    -fx-text-fill: #598B83;
+    -fx-background-color: #e1f1ee;
+    -fx-alignment: center;
+}
