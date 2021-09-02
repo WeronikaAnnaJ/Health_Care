@@ -28,10 +28,11 @@ public class Main extends Application {
 
 
 
-    public static void main(String[] args) {
-
-   try {
-            Employee employee = new Employee("Karol", "Wojciech", null, "Karolak", "1", LocalDate.of(1990, 12, 12), "111-111-111", "karol.wojciech.karolak@wp.pl");
+    public static void main(String[] args) throws Exception {
+       ExtendFile.readExtends();
+/*
+  try {
+            Employee employee = new Employee("Milena", null, null, "Sienkiwicz", "1", LocalDate.of(1990, 12, 12), "111-111-111", "karol.wojciech.karolak@wp.pl");
             employee.setEmploymentDate(LocalDate.of(2020,6,1));
             System.out.println(employee);
             System.out.println(employee.getPeriodOfEmployment());
@@ -42,6 +43,7 @@ public class Main extends Application {
             employee.addConnection("employed under","apply to", employmentContract);
             employee.showConnections("employed under");
 
+           // ExtendFile.writeExtends();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -62,6 +64,7 @@ public class Main extends Application {
 
             wardClerk0.addConnection("employed under","apply to", employmentContract0);
             wardClerk0.showConnections("employed under");
+           // ExtendFile.writeExtends();
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -84,6 +87,7 @@ public class Main extends Application {
 
             wardClerk1.addConnection("employed under","apply to", employmentContract1);
             wardClerk1.showConnections("employed under");
+            ExtendFile.writeExtends();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -132,20 +136,53 @@ public class Main extends Application {
             wardClerk3.addConnection("employed under","apply to", employmentContract3);
             wardClerk3.showConnections("employed under");
 
+            //ExtendFile.writeExtends();
+
         } catch (Exception e) {
             e.printStackTrace();
         }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+        Specialization cardiologist=new Specialization(MedicalSpecialization.Cardiologist);
+        Specialization neurologist=new Specialization(MedicalSpecialization.Neurologist);
+        Specialization dermatologist=new Specialization(MedicalSpecialization.Dermatologist);
+        Specialization internist=new Specialization(MedicalSpecialization.Internist);
+        Specialization familyDoctor=new Specialization(MedicalSpecialization.FamilyDoctor);
+        Specialization ginecologist=new Specialization(MedicalSpecialization.Gynaecologist);
+
+
         MedicalFacility medicalFacility= MedicalFacility.getMedicalFacilityExample();
         System.out.println(medicalFacility);
+        //get zapamietana
 
+        //lekarz
         try{
-            Doctor doctor= new Doctor("Karol", "Wojciech", null, "Karolak", "7", LocalDate.of(1990, 12, 12), "111-111-111", "karol.wojciech.karolak@wp.pl","1", MedicalSpecialist.Dermatologist);
-            doctor.addSpecialization(MedicalSpecialist.FamilyDoctor);
+            Doctor doctor= new Doctor("Paulina", "Wojciech", null, "Sienkiwicz", "7", LocalDate.of(1990, 12, 12), "111-111-111", "karol.wojciech.karolak@wp.pl","1");
+          //  doctor.addSpecialization(MedicalSpecialist.FamilyDoctor);
             System.out.println(doctor);
-            doctor.showSpecializations();
+            //doctor.showSpecializations();
             doctor.addConnection("employed","employ",medicalFacility);
+
+            doctor.addConnection("has competence","held by", familyDoctor);
+
+            doctor.addConnection("has competence","held by", cardiologist);
+
+
+            doctor.addConnection("has competence","held by", ginecologist);
+
 
             doctor.addAvaliableDate(LocalDateTime.of(2021,6,6,8,15) );
             doctor.addAvaliableDate(LocalDateTime.of(2021,6,9,10,15) );
@@ -153,17 +190,36 @@ public class Main extends Application {
             doctor.addAvaliableDate(LocalDateTime.of(2021,6,10,15,0) );
             doctor.addAvaliableDate(LocalDateTime.of(2021,6,10,8,0) );
 
+            System.out.println("--------------");
+            doctor.showConnections("has competence");
+            ObjectAssociation[] objects = doctor.getConnections("has competence");
+            System.out.println("TABLE LENGTH -> " + objects.length);
+            List<Specialization> specializations = new ArrayList<>();
+            for (ObjectAssociation object : objects) {
+                specializations.add((Specialization) object);
+            }
+            System.out.println("SPEC LENGTH -> " + specializations.size());
+
+            List<Specialization> specMetoda=Specialization.getSpecializations(doctor);
+            System.out.println("SPEC LENGTH MET-> " + specMetoda.size());
+            System.out.println("--------------");
             doctor.showDates();
+
+        //    ExtendFile.writeExtends();
 
         }catch(Exception e){
             e.printStackTrace();
         }
 
         try{
-            Doctor doctor1= new Doctor("Karol", "Wojciech", null, "Karolak", "8", LocalDate.of(1990, 12, 12), "111-111-111", "karol.wojciech.karolak@wp.pl","2", MedicalSpecialist.Internist);
-            doctor1.addSpecialization(MedicalSpecialist.Gynaecologist);
+            Doctor doctor1= new Doctor("Karolina", "Wojciech", null, "Miłosz", "8", LocalDate.of(1990, 12, 12), "111-111-111", "karol.wojciech.karolak@wp.pl","2");
+         //   doctor1.addSpecialization(MedicalSpecialist.Gynaecologist);
+            doctor1.addConnection("has competence","held by",ginecologist);
+
+            doctor1.addConnection("has competence","held by",cardiologist);
             System.out.println(doctor1);
-            doctor1.showSpecializations();
+
+           // doctor1.showSpecializations();
             doctor1.addConnection("employed","employ",medicalFacility);
 
             doctor1.addAvaliableDate(LocalDateTime.of(2021,6,6,8,15) );
@@ -171,6 +227,16 @@ public class Main extends Application {
             doctor1.addAvaliableDate(LocalDateTime.of(2021,6,6,11,15) );
             doctor1.addAvaliableDate(LocalDateTime.of(2021,6,11,15,0) );
             doctor1.addAvaliableDate(LocalDateTime.of(2021,6,11,8,0) );
+            doctor1.addAvaliableDate(LocalDateTime.of(2021,7,6,8,15) );
+            doctor1.addAvaliableDate(LocalDateTime.of(2021,7,6,10,15) );
+            doctor1.addAvaliableDate(LocalDateTime.of(2021,7,6,11,15) );
+            doctor1.addAvaliableDate(LocalDateTime.of(2021,7,11,15,0) );
+            doctor1.addAvaliableDate(LocalDateTime.of(2021,8,11,8,0) );
+            doctor1.addAvaliableDate(LocalDateTime.of(2021,6,12,8,15) );
+            doctor1.addAvaliableDate(LocalDateTime.of(2021,6,13,10,15) );
+            doctor1.addAvaliableDate(LocalDateTime.of(2021,6,14,11,15) );
+            doctor1.addAvaliableDate(LocalDateTime.of(2021,6,15,15,0) );
+            doctor1.addAvaliableDate(LocalDateTime.of(2021,6,16,8,0) );
 
             doctor1.changeDateAvailability(LocalDateTime.of(2021,6,6,8,15), false);
             doctor1.changeDateAvailability(LocalDateTime.of(2021,6,11,15,0), false);
@@ -183,6 +249,8 @@ public class Main extends Application {
 
             });
             doctor1.showDates();
+            ExtendFile.writeExtends();
+
         }catch(Exception e){
             e.printStackTrace();
         }
@@ -190,10 +258,11 @@ public class Main extends Application {
 
 
         try{
-            Doctor doctor2= new Doctor("Karol", "Wojciech", null, "Karolak", "9", LocalDate.of(1990, 12, 12), "111-111-111", "karol.wojciech.karolak@wp.pl","3", MedicalSpecialist.Neurologist);
-            doctor2.addSpecialization(MedicalSpecialist.FamilyDoctor);
+            Doctor doctor2= new Doctor("Wojciech", null, null, "Milewski", "9", LocalDate.of(1990, 12, 12), "111-111-111", "karol.wojciech.karolak@wp.pl","3");
+          //  doctor2.addSpecialization(MedicalSpecialist.FamilyDoctor);
             System.out.println(doctor2);
-            doctor2.showSpecializations();
+            //doctor2.showSpecializations();
+            doctor2.addConnection("has competence","held by",familyDoctor);
 
             doctor2.addAvaliableDate(LocalDateTime.of(2021,6,8,8,15) );
             doctor2.addAvaliableDate(LocalDateTime.of(2021,6,9,8,15) );
@@ -203,6 +272,8 @@ public class Main extends Application {
             doctor2.showDates();
 
             doctor2.addConnection("employed","employ",medicalFacility);
+            ExtendFile.writeExtends();
+
         }catch(Exception e){
             e.printStackTrace();
         }
@@ -210,13 +281,14 @@ public class Main extends Application {
 
 
         try{
-            Doctor doctor3= new Doctor("Karol", "Wojciech", null, "Karolak", "10", LocalDate.of(1990, 12, 12), "111-111-111", "karol.wojciech.karolak@wp.pl","3", MedicalSpecialist.FamilyDoctor);
-            doctor3.addSpecialization(MedicalSpecialist.Cardiologist);
+            Doctor doctor3= new Doctor("Magdalena", "Wojciech", null, "Wojciechowska", "10", LocalDate.of(1990, 12, 12), "111-111-111", "karol.wojciech.karolak@wp.pl","3");
+      //      doctor3.addSpecialization(MedicalSpecialist.Cardiologist);
             System.out.println(doctor3);
-            doctor3.showSpecializations();
+       //     doctor3.showSpecializations();
             doctor3.addConnection("employed","employ",medicalFacility);
+            doctor3.addConnection("has competence","held by",ginecologist);
 
-/*
+
             doctor3.addAvaliableDate(LocalDateTime.of(2021,6,8,10,15) );
             doctor3.addAvaliableDate(LocalDateTime.of(2021,6,9,10,15) );
             doctor3.addAvaliableDate(LocalDateTime.of(2021,6,10,10,15) );
@@ -224,13 +296,14 @@ public class Main extends Application {
             doctor3.addAvaliableDate(LocalDateTime.of(2021,6,12,10,0) );
 
             doctor3.showDates();
-*/
+
         /////////////////////////
+
+         //   ExtendFile.writeExtends();
 
         }catch(Exception e){
             e.printStackTrace();
         }
-
 
         try {
             medicalFacility.showConnections("employ");
@@ -238,66 +311,30 @@ public class Main extends Application {
             e.printStackTrace();
         }
 
+*/
 
-        try {
-            List<Doctor> doctors= Doctor.getDoctorsEmployedIn(medicalFacility);
-            for(Doctor doctor : doctors){
-                System.out.println(doctor);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
+/*
         List<ObjectLifeSpan> ob= ObjectLifeSpan.getExtentForClass(WardClerk.class);
-        for(ObjectLifeSpan o: ob){
+        for(ObjectLifeSpan o: ob) {
             System.out.println(o);
-        }
-
-        List<String> doctorsForApoointment=new ArrayList<>();
-        doctorsForApoointment.add("Cardiologist");
-        doctorsForApoointment.add("Dermatologist");
-        doctorsForApoointment.add("Gynaecologist");
-        doctorsForApoointment.add("Internist");
-        doctorsForApoointment.add("Neurologist");
-        doctorsForApoointment.add("Orthopaedist");
-        doctorsForApoointment.add("FamilyDoctor");
-
-
-        try {
-            Doctor.showDatesForAllDoctors(medicalFacility);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        try {
-            List<Doctor> doctors= Doctor.getDoctors(MedicalSpecialist.FamilyDoctor, medicalFacility);
-            int i=1;
-            System.out.println("Family doctors in medical facility");
-            for (Doctor d:doctors) {
-                System.out.println(i +".  "+ d);
-                i++;
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+            //   ExtendFile.writeExtends();
         }
 
 
-        try {
-            System.out.println(Doctor.getMedicalSpecialistFor("FamilyDoctor").toString());
-            System.out.println(Doctor.getMedicalSpecialistFor("Internist").toString());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-
-        //working Example = Patient
-        try {
+     try {
             Patient patientExample= Patient.getPatientExample();
-            Referral referralCardiologist= new Referral(LocalDate.of(2021,9,6),"Appointment", "999","Weronika","Kowalska",null,MedicalSpecialist.Cardiologist);
-            Referral referralInternist= new Referral(LocalDate.of(2021,9,6),"Appointment", "999","Weronika","Kowalska",null,MedicalSpecialist.Internist);
-            Referral referralGinecologist= new Referral(LocalDate.of(2021,10,6),"Appointment", "999","Weronika","Kowalska",null,MedicalSpecialist.Gynaecologist);
-            Referral referralGinecologist2= new Referral(LocalDate.of(2021,11,11),"Appointment", "999","Weronika","Kowalska",null,MedicalSpecialist.Gynaecologist);
-            Referral referralDermatologist= new Referral(LocalDate.of(2021,1,6),"Appointment", "999","Weronika","Kowalska",null,MedicalSpecialist.Dermatologist);
+            Referral referralCardiologist= new Referral(LocalDate.of(2021,10,6),"Appointment", "999","Weronika","Kowalska",null,MedicalSpecialization.Cardiologist);
+            Referral referralInternist= new Referral(LocalDate.of(2021,12,6),"Appointment", "999","Weronika","Kowalska",null,MedicalSpecialization.Internist);
+            Referral referralGinecologist= new Referral(LocalDate.of(2021,10,6),"Appointment", "999","Weronika","Kowalska",null,MedicalSpecialization.Gynaecologist);
+            Referral referralGinecologist2= new Referral(LocalDate.of(2021,11,11),"Appointment", "999","Weronika","Kowalska",null,MedicalSpecialization.Gynaecologist);
+            Referral referralDermatologist= new Referral(LocalDate.of(2021,1,6),"Appointment", "999","Weronika","Kowalska",null,MedicalSpecialization.Dermatologist);
+
+            Referral referralCardiologist1= new Referral(LocalDate.of(2022,10,6),"Appointment", "999","Weronika","Kowalska",null,MedicalSpecialization.Cardiologist);
+            Referral referralInternist1= new Referral(LocalDate.of(2022,12,6),"Appointment", "999","Weronika","Kowalska",null,MedicalSpecialization.Internist);
+            Referral referralGinecologist1= new Referral(LocalDate.of(2023,10,6),"Appointment", "999","Weronika","Kowalska",null,MedicalSpecialization.Gynaecologist);
+            Referral referralGinecologist12= new Referral(LocalDate.of(2024,11,11),"Appointment", "999","Weronika","Kowalska",null,MedicalSpecialization.Gynaecologist);
+            Referral referralDermatologist1= new Referral(LocalDate.of(2024,1,6),"Appointment", "999","Weronika","Kowalska",null,MedicalSpecialization.Dermatologist);
+
 
             referralCardiologist.addConnectionWithQualifier("patient","referral", patientExample, patientExample.getPesel());
             referralInternist.addConnectionWithQualifier("patient","referral", patientExample, patientExample.getPesel());
@@ -305,9 +342,18 @@ public class Main extends Application {
             referralGinecologist2.addConnectionWithQualifier("patient","referral", patientExample, patientExample.getPesel());
             referralDermatologist.addConnectionWithQualifier("patient","referral", patientExample, patientExample.getPesel());
 
+
+            referralCardiologist1.addConnectionWithQualifier("patient","referral", patientExample, patientExample.getPesel());
+            referralInternist1.addConnectionWithQualifier("patient","referral", patientExample, patientExample.getPesel());
+            referralGinecologist1.addConnectionWithQualifier("patient","referral", patientExample, patientExample.getPesel());
+            referralGinecologist12.addConnectionWithQualifier("patient","referral", patientExample, patientExample.getPesel());
+            referralDermatologist1.addConnectionWithQualifier("patient","referral", patientExample, patientExample.getPesel());
+
+
+
             patientExample.showConnections("referral");
-            Referral.getActualReferralForPacient(patientExample,MedicalSpecialist.Cardiologist);
-            List<Referral> referrals= Referral.getActualReferralForPacient(patientExample, MedicalSpecialist.Gynaecologist);
+            Referral.getActualReferralForPacient(patientExample,MedicalSpecialization.Cardiologist);
+            List<Referral> referrals= Referral.getActualReferralForPacient(patientExample, MedicalSpecialization.Gynaecologist);
             System.out.println(Referral.getMostUrgentReferral(referrals));
 
             LocalDateTime localDateTime= LocalDateTime.of(2021,10,10,12,10);
@@ -320,18 +366,28 @@ public class Main extends Application {
                 System.out.println(appointment1);
             }
 
-            List<RowForComboBox> rows= Doctor.getSegregatedAvailableDatesForDoctors(medicalFacility, MedicalSpecialist.FamilyDoctor);
-            System.out.println(rows.size());
-            for(RowForComboBox row : rows) {
-                System.out.println(row);
-            }
+        //    List<RowForComboBox> rows= Doctor.getSegregatedAvailableDatesForDoctors(medicalFacility, MedicalSpecialist.FamilyDoctor);
+        //    System.out.println(rows.size());
+          //  for(RowForComboBox row : rows) {
+            //    System.out.println(row);
+            //}
 
+        ExtendFile.writeExtends();
         } catch (Exception e) {
             e.printStackTrace();
         }
 
 
-        ExtendFile.writeExtends();
+     //   MedicalFacility medicalFacility1= new MedicalFacility("Bialostoska 2a Warszawa", "MedelMed");
+
+     //   MedicalFacility medicalFacility2= new MedicalFacility("Wiosenna 8 Warszawa", "MedelMed Wiosenna");
+
+    //    MedicalFacility medicalFacility3= new MedicalFacility("Sienkiwicza 31 Warszawa", "MedelMed Sienkiwicza");
+
+
+*/
+
+
 
         try {
             System.out.println();
@@ -344,6 +400,7 @@ public class Main extends Application {
                 System.out.println("association");
                 con.forEach((key, value) -> System.out.println(key + ":" + value));
             }
+          //  ExtendFile.writeExtends();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -360,6 +417,7 @@ public class Main extends Application {
                 System.out.println("association");
                 con.forEach((key, value) -> System.out.println(key + ":" + value + "  " ) );
             }
+        //    ExtendFile.writeExtends();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -378,7 +436,9 @@ public class Main extends Application {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        launch(args);
+
+    //    ExtendFile.readExtends();
+
 
 
 
@@ -403,37 +463,32 @@ public class Main extends Application {
             List<ObjectLifeSpan> getExtentForClass= ObjectLifeSpan.getExtentForClass(Referral.class);
             System.out.println();
             for (ObjectLifeSpan o: getExtentForClass) {
-                AssociationConstraint associationConstraint= (AssociationConstraint) o ;
+                ObjectAssociation associationConstraint= (ObjectAssociation) o ;
                 Map<String, LinkedHashMap<Object, ObjectAssociation>> con = associationConstraint.getConections();
                 System.out.println("association");
                 con.forEach((key, value) -> System.out.println(key + ":" + value));
             }
         } catch (Exception e) {
             e.printStackTrace();
+}
+
+
+        List<ObjectLifeSpan> allDoctors= ObjectLifeSpan.getExtentForClass(Doctor.class);
+        for(ObjectLifeSpan o : allDoctors){
+            Doctor d = (Doctor) o;
+            d.showConnections("has competence");
+
         }
 
 
-
-        try {
-            ObjectLifeSpan.showExtent(Doctor.class);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+   //   ExtendFile.readExtends();
 
 
+  //     ExtendFile.readExtends();
 
-        try {
-            ObjectLifeSpan.showExtent(EmploymentContract.class);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        launch(args);
 
-
-        try {
-            ObjectLifeSpan.showExtent(RowForComboBox.class);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        ExtendFile.writeExtends();
 
 
 

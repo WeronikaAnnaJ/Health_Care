@@ -17,14 +17,14 @@
          <font>
             <Font name="System Bold" size="12.0" />
          </font></Label>
-      <ComboBox fx:id="specializationComboBox" layoutX="59.0" layoutY="196.0" onAction="#specializationChoice" prefHeight="26.0" prefWidth="350.0" />
-      <Label fx:id="InformationSpecializationLabel" layoutX="69.0" layoutY="253.0" prefHeight="34.0" prefWidth="350.0" text="Umówienie wizyty do specjalizacsty, z wyjątkiem lekarza rodzinnego, wymaga wcześniej wystawionego skierowania" textOverrun="CLIP" wrapText="true" />
-      <Label layoutX="69.0" layoutY="354.0" text="Wybierz termin" textFill="#31af91">
+      <ComboBox fx:id="specializationComboBox" layoutX="69.0" layoutY="201.0" onAction="#specializationChoice" prefHeight="26.0" prefWidth="350.0" />
+      <Label fx:id="InformationSpecializationLabel" layoutX="69.0" layoutY="268.0" prefHeight="34.0" prefWidth="350.0" text="Umówienie wizyty do specjalizacsty, z wyjątkiem lekarza rodzinnego, wymaga wcześniej wystawionego skierowania" textOverrun="CLIP" wrapText="true" />
+      <Label layoutX="79.0" layoutY="364.0" text="Wybierz termin" textFill="#31af91">
          <font>
             <Font name="System Bold" size="12.0" />
          </font></Label>
-      <Label fx:id="InformationDateLabel" layoutX="69.0" layoutY="435.0" prefHeight="26.0" prefWidth="350.0" text="Terminy wolnych wizyt u danych lekarzy" />
-      <ComboBox fx:id="AppointmentDateComboBox" layoutX="59.0" layoutY="382.0" prefHeight="26.0" prefWidth="350.0" />
+      <Label fx:id="InformationDateLabel" layoutX="69.0" layoutY="463.0" prefHeight="26.0" prefWidth="350.0" text="Terminy wolnych wizyt u danych lekarzy" />
+      <ComboBox fx:id="AppointmentDateComboBox" layoutX="69.0" layoutY="392.0" prefHeight="26.0" prefWidth="350.0" />
       <Button fx:id="confirmButton" contentDisplay="TOP" layoutX="234.0" layoutY="531.0" mnemonicParsing="false" onAction="#setSetConfirmButtonAction" prefHeight="42.0" prefWidth="111.0" style="-fx-background-color: #31af91;" text="Zatwierdź" textFill="WHITE">
          <font>
             <Font name="System Bold" size="12.0" />
@@ -33,12 +33,12 @@
          <font>
             <Font name="System Bold" size="12.0" />
          </font></Button>
-      <Label fx:id="noRefferalLabel" layoutX="59.0" layoutY="228.0" prefHeight="18.0" prefWidth="328.0" text=" Brak dostępnego skierowanie do wyberanego specjalisty" textFill="#ff0f0f" visible="false">
+      <Label fx:id="noRefferalLabel" layoutX="75.0" layoutY="236.0" prefHeight="26.0" prefWidth="328.0" text=" Brak dostępnego skierowanie do wyberanego specjalisty" textFill="#ff0f0f" visible="false">
          <font>
             <Font name="System Bold Italic" size="12.0" />
          </font>
       </Label>
-      <Label fx:id="noAppointmentsLabel" layoutX="59.0" layoutY="416.0" prefHeight="18.0" prefWidth="328.0" text="Przykro nam, brak wolnych terminów wizyt  :(" textFill="#31af91" visible="false">
+      <Label fx:id="noAppointmentsLabel" layoutX="79.0" layoutY="430.0" prefHeight="26.0" prefWidth="378.0" text="Przykro nam, brak wolnych terminów wizyt  :(" textFill="#31af91" visible="false">
          <font>
             <Font name="System Bold Italic" size="12.0" />
          </font>

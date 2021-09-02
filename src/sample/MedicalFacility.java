@@ -2,6 +2,7 @@ package sample;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -75,5 +76,13 @@ public class MedicalFacility extends AssociationConstraint{
     }
 
 
+    public static List<MedicalFacility> getMedicalFacilities(){
+        List<ObjectLifeSpan> list = ObjectLifeSpan.getExtentForClass(MedicalFacility.class);
+        List<MedicalFacility> result=new ArrayList<>();
+        for (ObjectLifeSpan object : list) {
+            result.add((MedicalFacility) object);
+        }
+        return result;
+    }
 
 }

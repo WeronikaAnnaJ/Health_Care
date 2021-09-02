@@ -3,7 +3,7 @@ package sample;
 import java.time.LocalDate;
 import java.util.*;
 
-public class Referral extends AssociationConstraint{
+public class Referral extends ObjectAssociation{
     private LocalDate dateOfIssuing;
     private LocalDate expiryDate;
     private String medicalExamination;//albo lista w zaleznosci ile badań new ArrayList<>();//albo inna nazwa
@@ -11,9 +11,9 @@ public class Referral extends AssociationConstraint{
     private String firstName;
     private String lastName;
     private Doctor orderingDoctor;
-    private MedicalSpecialist medicalSpecialist;
+    private MedicalSpecialization medicalSpecialist;
 
-    Referral(LocalDate expiryDate, String medicalExamination, String PESEL, String firstName, String lastName, Doctor orderingDoctor, MedicalSpecialist medicalSpecialist )throws Exception{
+    Referral(LocalDate expiryDate, String medicalExamination, String PESEL, String firstName, String lastName, Doctor orderingDoctor, MedicalSpecialization medicalSpecialist )throws Exception{
         super();
         if( expiryDate == null || medicalSpecialist==null || medicalExamination ==null ){
             throw new Exception("Expiry date, medicalSpecialist, medical Examination cannot be null.");
@@ -55,7 +55,7 @@ public class Referral extends AssociationConstraint{
 
 
 
-    public MedicalSpecialist getMedicalSpecialist() {
+    public MedicalSpecialization getMedicalSpecialist() {
         return medicalSpecialist;
     }
 
@@ -83,7 +83,7 @@ public class Referral extends AssociationConstraint{
 
 
 
-    public static List<Referral> getActualReferralForPacient(Patient patient, MedicalSpecialist medicalSpecialist) throws Exception {
+    public static List<Referral> getActualReferralForPacient(Patient patient, MedicalSpecialization medicalSpecialist) throws Exception {
         List<Referral>  list =  new ArrayList<>();
         try {
             System.out.println();

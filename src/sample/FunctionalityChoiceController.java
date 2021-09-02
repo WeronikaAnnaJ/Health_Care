@@ -74,7 +74,16 @@ public class FunctionalityChoiceController implements Initializable {
         stage.show();
     }
 
-
+    @FXML
+    void checkInformationButtonAction(ActionEvent event) throws IOException {
+        Parent functionalityChoiceParent= FXMLLoader.load(getClass().getResource("Information.fxml"));
+        Scene funtionalityChoiceScene= new Scene(functionalityChoiceParent);
+        Stage stage = (Stage) (((Node)event.getSource()).getScene().getWindow());
+        stage.hide();
+        stage.setScene(funtionalityChoiceScene);
+        stage.show();
+     //   funtionalityChoiceScene.getStylesheets().add("sample/CSS/tableStylesheet.css");
+    }
 
 
 

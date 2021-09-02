@@ -6,7 +6,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.stream.Collectors;
 
-enum MedicalSpecialist{
+/*enum MedicalSpecialist{
     Cardiologist,
     Dermatologist,
     Gynaecologist,
@@ -14,18 +14,19 @@ enum MedicalSpecialist{
     Neurologist,
     FamilyDoctor
 };
-
+*/
 
 public class Doctor extends Medic { //klasa Lekarz dziedzicząca po klasie Pracownik Medyczny
 
     private String PWZ;
-    private EnumSet<MedicalSpecialist> specializations;//Specjalny rodzaj kolekcji pełniący rolę dyskryminatora
+ //   private EnumSet<MedicalSpecialist> specializations;//Specjalny rodzaj kolekcji pełniący rolę dyskryminatora
     private static Map<String, Doctor> allPWZ = new LinkedHashMap<>();
     private Map<LocalDateTime, Boolean> availableDates = new TreeMap<LocalDateTime, Boolean>();
 
+    private List<Double> ratings=new ArrayList<>();
 
 
-    Doctor(String name, String middleName, String maidenName, String lastName, String pesel, LocalDate birthDate, String phoneNumber, String emailAddress, String PWZ, MedicalSpecialist specialization) throws Exception {
+    Doctor(String name, String middleName, String maidenName, String lastName, String pesel, LocalDate birthDate, String phoneNumber, String emailAddress, String PWZ) throws Exception {
         super(name, middleName, maidenName, lastName, pesel, birthDate, phoneNumber, emailAddress);
 
         /** Ograniczenie {Unique}  **/
@@ -35,7 +36,7 @@ public class Doctor extends Medic { //klasa Lekarz dziedzicząca po klasie Praco
         allPWZ.put(PWZ, this);//dodanie peselu i obiektu do mapy
         this.PWZ = PWZ;
 
-        specializations = EnumSet.of(specialization);
+    //    specializations = EnumSet.of(specialization);
     }
 
 
@@ -78,7 +79,7 @@ public class Doctor extends Medic { //klasa Lekarz dziedzicząca po klasie Praco
         }
     }
 
-
+/*
 
     public static Map<Doctor, Map<LocalDateTime, Boolean>> getDatesForAllDoctors(MedicalFacility medicalFacility) throws Exception {
         Map<Doctor, Map<LocalDateTime, Boolean>> datesForDoctors = new HashMap<>();
@@ -112,9 +113,37 @@ public class Doctor extends Medic { //klasa Lekarz dziedzicząca po klasie Praco
                 .sorted(Comparator.comparing(RowForComboBox::getLocalDateTime)).collect(Collectors.toList());
         return informations;
     }
+*/
+
+
+    public static List<RowForComboBox> getSegregatedAvailableDatesForDoctors( MedicalSpecialization medicalSpecialist) throws Exception {
+       // List<Doctor> doctors = getDoctorsEmployedIn(medicalFacility);
+        //znajdz wszystkich lekarzy
+        List<Doctor> doctors = Specialization.getDoctors(Specialization.getSpecialization(medicalSpecialist));
+        List<RowForComboBox> informations = new ArrayList<>();
+
+        for (Doctor doctor : doctors) {
+          //  if (doctor.getSpecializations().contains(medicalSpecialist)) {
+                List<LocalDateTime> availableDates = doctor.getAvailableSegregateDates();
+                for (LocalDateTime d:availableDates) {
+                    System.out.println(d);
+                }
+                for (LocalDateTime date : availableDates) {
+                    RowForComboBox row = new RowForComboBox(doctor, date);
+                    informations.add(row);
+                }
+            }
+    //}
+
+
+        informations= informations.stream()
+                .sorted(Comparator.comparing(RowForComboBox::getLocalDateTime)).collect(Collectors.toList());
+        return informations;
+    }
 
 
 
+/*
     public static void showDatesForAllDoctors(MedicalFacility medicalFacility)throws Exception{
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         System.out.println("Dates for all doctors : " );
@@ -125,7 +154,7 @@ public class Doctor extends Medic { //klasa Lekarz dziedzicząca po klasie Praco
         });
     }
 
-
+*/
 
     public static void  showMap(Map<LocalDateTime, Boolean> dates){
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
@@ -135,7 +164,7 @@ public class Doctor extends Medic { //klasa Lekarz dziedzicząca po klasie Praco
     }
 
 
-
+/*
     public static List<Doctor> getDoctors(MedicalSpecialist medicalSpecialist, MedicalFacility medicalFacility) throws Exception {
         List<Doctor> allDoctors= Doctor.getDoctorsEmployedIn(medicalFacility);
         List<Doctor> doctors= new ArrayList<>();
@@ -148,7 +177,7 @@ public class Doctor extends Medic { //klasa Lekarz dziedzicząca po klasie Praco
         return doctors;
     }
 
-
+*/
 
     public  Map<LocalDateTime, Boolean> getDatesWhere(Boolean available){
         Map<LocalDateTime, Boolean> allDates= this.availableDates;
@@ -159,6 +188,15 @@ public class Doctor extends Medic { //klasa Lekarz dziedzicząca po klasie Praco
             }
         });
         return availableDates;
+    }
+    public static List<Doctor> getAllDoctors(){
+        //Pobierz wszystkicg lekarzy zatrudnionych w placówce
+        List<ObjectLifeSpan> objects = ObjectLifeSpan.getExtentForClass(Doctor.class);
+        List<Doctor> doctors = new ArrayList<>();
+        for (ObjectLifeSpan object : objects) {
+            doctors.add((Doctor) object);
+        }
+        return doctors;
     }
 
 
@@ -177,7 +215,7 @@ public class Doctor extends Medic { //klasa Lekarz dziedzicząca po klasie Praco
 
 
 
-
+/*
     public EnumSet<MedicalSpecialist> getSpecializations(){
         return this.specializations;
     }
@@ -277,9 +315,28 @@ public class Doctor extends Medic { //klasa Lekarz dziedzicząca po klasie Praco
         specializationDictionary.put("Lekarz rodzinny",MedicalSpecialist.FamilyDoctor);
         return  specializationDictionary;
     }
+*/
 
 
 
+    //add value
+    public void addCValue(double value){
+        ratings.add(value);
+    }
+
+    //get rating
+
+    public Double getRating(){
+        //srednia a jak brak to null
+        if(ratings.size()==0){
+            return null;
+        }
+        Double sum=0.;
+        for(Double d : ratings){
+            sum+=d;
+        }
+        return sum/(ratings.size());
+    }
 
     @Override
     public String toString() {
